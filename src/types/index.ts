@@ -103,6 +103,14 @@ export interface GalleryImage {
   category: ServiceSlug | 'general';
 }
 
+export interface GalleryVideo {
+  id: string;
+  /** Absolute URL to an MP4 (H.264/AAC) served from the CDN. */
+  src: string;
+  /** Human-readable description; used as the accessible name and caption. */
+  label: string;
+}
+
 export interface Partner {
   id: string;
   name: string;

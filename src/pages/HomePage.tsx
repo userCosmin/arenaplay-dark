@@ -9,7 +9,7 @@ import { NeonServiceCards } from '@/components/sections/neon/NeonServiceCards';
 import { NeonFinalCTA } from '@/components/sections/neon/NeonFinalCTA';
 import { WhatAreYouLookingFor } from '@/components/sections/WhatAreYouLookingFor';
 import { Testimonials } from '@/components/sections/Testimonials';
-import { Gallery } from '@/components/sections/Gallery';
+import { VideoGallery } from '@/components/sections/VideoGallery';
 import { LocationHours } from '@/components/sections/LocationHours';
 import { FAQSection } from '@/components/sections/FAQSection';
 
@@ -104,7 +104,7 @@ export default function HomePage() {
           {/* Shared sections, re-skinned to dark by the .neon-page rules */}
           <WhatAreYouLookingFor />
           <Testimonials />
-          <Gallery title="Momente Arena Play" />
+          <VideoGallery title="Momente Arena Play" />
           <LocationHours />
           <FAQSection />
 
