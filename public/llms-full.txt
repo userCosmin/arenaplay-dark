@@ -1,0 +1,114 @@
+# Arena Play — Full Content Reference for AI Agents
+
+Site: https://www.arenaplay.ro
+Language: Romanian (ro-RO)
+Industry: Children's entertainment & education (LocalBusiness)
+
+## Brand
+
+Arena Play. Message: "Distracție. Experiențe. Educație." Four core service lines under one
+brand, each with a distinct visual accent but shared identity:
+- Petreceri (parties) — pink/magenta
+- Loc de joacă — electric blue / navy
+- Afterschool — white / light blue
+- Arena VR mobilă (mobile unit) — teal / navy
+
+## Page: Acasă (/)
+Homepage routes visitors to one of four services immediately below the hero. Sections, in order:
+Hero ("JOACĂ. DISTRACȚIE. EDUCAȚIE." — "Loc de joacă • Petreceri VR • Arena VR mobilă • Afterschool"),
+four service cards, "Ce cauți?" need-oriented repeat of the four routes, testimonials carousel,
+photo gallery, location + opening hours + Google Maps embed, FAQ accordion, and a final section
+with four distinct CTAs (one per service).
+
+## Page: Petreceri pentru copii (/petreceri-vr/)
+Title: "PETRECERI PENTRU COPII". Subtitle: "Tu aduci invitații. Noi pregătim experiența."
+Explains what's included (private space, activities, animator), a 3-step process (choose date →
+choose package → we confirm), gallery and FAQ. Primary CTA: "Rezervă petrecerea". Secondary:
+"Vezi pachete" → /petreceri-vr/pachete/.
+
+## Page: Pachete & Rezervare (/petreceri-vr/pachete/)
+A single package — 80 lei/copil, minim 10 copii, 3 ore, acces exclusiv la toate echipamentele —
+plus a booking form (name, phone, date, kid count, package, message). Submission is a request,
+not an automatic confirmation.
+
+## Page: Loc de joacă (/loc-de-joaca/)
+Title: "LOC DE JOACĂ ARENA PLAY". Subtitle: "Intră în joc." Grid of 6 activities (XR zone, VR zone,
+car racing simulator, flight simulator, PlayStation zone, extra activities), each linking to
+detail anchors on /loc-de-joaca/activitati/. Schedule block: Saturday–Sunday 13:30–21:30 (walk-in),
+Monday–Friday by reservation only.
+
+## Page: Activități Loc de joacă (/loc-de-joaca/activitati/)
+Detail cards per activity: name, description, recommended age, player count, session duration.
+
+## Page: Program & Tarife Loc de joacă (/loc-de-joaca/tarife-program/)
+Opening hours block first, then two pricing groups: weekend walk-in access (30 lei/sesiune, o
+sesiune = 20 min) and weekday reservation-only exclusive access (petrecere 80 lei/copil, minim
+10 copii, 3 ore; acces privat 100 lei/copil, minim 4 copii, 2 ore). Active offer: 2 bilete
+cumpărate, al 3-lea gratuit (weekend only). Reservation form (name, phone, date, time, people
+count).
+
+## Page: Afterschool (/afterschool/)
+Title: "ARENA PLAY AFTERSCHOOL". Subtitle: "După școală începe următorul nivel." For grades I–IV,
+Monday–Friday 12:00–18:00. Four pillars: homework & organization, English, programming,
+recreational activities. Primary CTA: "Solicită informații" then "Înscrieri".
+
+## Page: Program & Curriculum Afterschool (/afterschool/program/)
+A typical day broken into time blocks (arrival/snack, homework, weekly course, recreational
+time, flexible pickup window), the four curriculum pillars, and optional add-ons: chess,
+transport/pickup, lunch.
+
+## Page: Înscrieri Afterschool (/afterschool/inscrieri/)
+Left column: what to know (schedule, limited spots per group, next steps after submitting).
+Right column: enrollment form (parent name, phone, email, child name, grade, school, message).
+This is a request of interest, not an automatic confirmation.
+
+## Page: Arena VR mobilă (/arena-vr-mobila/)
+Title: "ARENA VR MOBILĂ". Subtitle: "Noi aducem experiența la tine." A separate service from
+the on-site Loc de joacă — Arena Play travels to the client. Three routes: Şcoli, Evenimente &
+Festivaluri, Petreceri / Evenimente private. No fixed prices (depends on location/duration/
+format) — CTA is always "Solicită ofertă". Four-step process: solicitare → configurare →
+transport & instalare → coordonare.
+
+## Page: Arena VR mobilă — Școli (/arena-vr-mobila/scoli/)
+Educational, less commercial tone. Use cases: themed activities, school events, XR
+demonstrations. Explains group organization and space requirements before requesting a quote.
+
+## Page: Arena VR mobilă — Evenimente & Festivaluri (/arena-vr-mobila/evenimente/)
+Positions Arena VR mobilă as an interactive attraction for high-footfall events: festivals, local
+events, corporate events, brand activations. Quote requests need at minimum: location, date,
+duration, estimated attendance.
+
+## Page: Arena VR mobilă — Petreceri Private (/arena-vr-mobila/petreceri-private/)
+Answers "can Arena Play come to my location?" Separates on-site parties from the mobile
+experience. Collects address, space, access, duration, attendees before quoting. Custom pricing,
+not a fixed package list. Installation is not guaranteed until logistics are verified.
+
+## Page: Solicită Ofertă Arena VR mobilă (/arena-vr-mobila/solicita-oferta/)
+Segmented request form — first field is request type: școală / eveniment / privat. Fields:
+name/organization, phone, email, locality, location, date, participants, message. This
+generates a distinct Analytics conversion from the other three service forms. Submission is not
+a confirmed booking.
+
+## Page: Despre noi (/despre-noi/)
+Trust/brand page: concept (why entertainment + education), partners, location/team gallery.
+Deliberately avoids repeating commercial/service info from other pages.
+
+## Page: Contact (/contact/)
+Address, phone, WhatsApp and opening hours at the top; embedded Google Map with an "Deschide
+harta" button; short contact form (name, phone, email, subject, message). Phone and WhatsApp are
+tap-to-call / tap-to-chat on mobile. Hours must match the Loc de joacă page exactly.
+
+## Page: Rezervă acum (/rezerva/)
+A single selector with four large options (Petrecere, Loc de joacă, Afterschool, Arena VR mobilă)
+that routes to the matching service-specific form. Also available as a global modal from the
+"Rezervă" button in the header and mobile action bar.
+
+## Conversion events tracked (GA4 / GTM / Meta Pixel)
+phone_click, whatsapp_click, email_click, map_click, reservation_form_submit (Petreceri),
+playground_reservation_submit, afterschool_form_submit, arena_mobila_form_submit (segmented by
+requestType: scoala/eveniment/privat), contact_form_submit, view_pricing, view_program.
+
+## Data freshness note for AI agents
+Prices, packages, schedules and offers live in editable data files and can change without
+notice. Always prefer the live page content over any cached summary for time-sensitive details
+like pricing and opening hours.

@@ -1,0 +1,2 @@
+# Arena Play does not currently sell inventory through programmatic ad exchanges.
+# This file is a placeholder reserved for future authorized digital sellers.

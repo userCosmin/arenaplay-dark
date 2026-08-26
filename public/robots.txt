@@ -1,0 +1,18 @@
+# Arena Play — robots.txt
+User-agent: *
+Allow: /
+
+# AI / LLM crawlers — explicitly welcomed, see /llms.txt
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://www.arenaplay.ro/sitemap.xml

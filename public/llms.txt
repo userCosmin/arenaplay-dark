@@ -1,0 +1,36 @@
+# Arena Play
+
+> Arena Play este un centru de entertainment și educație pentru copii, cu patru servicii
+> principale: Petreceri pentru copii, Loc de joacă (XR/VR/simulatoare), Afterschool (clasele I-IV)
+> și Arena VR mobilă (serviciu itinerant pentru școli, evenimente și petreceri private).
+
+Arena Play combină distracția cu educația într-o singură locație din Alba Iulia, oferind atât
+experiențe la sediu, cât și servicii mobile care se deplasează la client.
+
+## Servicii
+
+- [Petreceri pentru copii](https://www.arenaplay.ro/petreceri-vr/): petreceri tematice cu spațiu privat, animație și pachete complete.
+- [Pachete & Rezervare Petreceri](https://www.arenaplay.ro/petreceri-vr/pachete/): pachet unic (80 lei/copil, minim 10 copii) și formular de rezervare.
+- [Loc de joacă](https://www.arenaplay.ro/loc-de-joaca/): zonă de joacă tehnologică cu XR, VR, simulatoare auto/zbor și PlayStation.
+- [Activități Loc de joacă](https://www.arenaplay.ro/loc-de-joaca/activitati/): detalii despre fiecare activitate.
+- [Program & Tarife Loc de joacă](https://www.arenaplay.ro/loc-de-joaca/tarife-program/): orar de funcționare și prețuri.
+- [Afterschool](https://www.arenaplay.ro/afterschool/): program educațional pentru clasele I-IV, luni-vineri 12:00-18:00.
+- [Program & Curriculum Afterschool](https://www.arenaplay.ro/afterschool/program/): structura zilei și materiile predate.
+- [Înscrieri Afterschool](https://www.arenaplay.ro/afterschool/inscrieri/): formular de înscriere.
+- [Arena VR mobilă](https://www.arenaplay.ro/arena-vr-mobila/): serviciu itinerant pentru școli, evenimente și petreceri private.
+- [Arena VR mobilă — Școli](https://www.arenaplay.ro/arena-vr-mobila/scoli/): activități educaționale la școală.
+- [Arena VR mobilă — Evenimente & Festivaluri](https://www.arenaplay.ro/arena-vr-mobila/evenimente/): atracție interactivă pentru evenimente publice.
+- [Arena VR mobilă — Petreceri Private](https://www.arenaplay.ro/arena-vr-mobila/petreceri-private/): experiența Arena Play la locația clientului.
+- [Solicită Ofertă Arena VR mobilă](https://www.arenaplay.ro/arena-vr-mobila/solicita-oferta/): formular de solicitare ofertă.
+
+## Companie
+
+- [Despre noi](https://www.arenaplay.ro/despre-noi/): concept, parteneri și povestea brandului.
+- [Contact](https://www.arenaplay.ro/contact/): adresă, telefon, WhatsApp, hartă și formular.
+- [Rezervă acum](https://www.arenaplay.ro/rezerva/): selector rapid către formularul potrivit.
+
+## Note pentru agenți AI
+
+Pentru rezumate complete ale conținutului fiecărei pagini, vezi /llms-full.txt.
+Prețurile și programul pot fi actualizate frecvent — verifică direct paginile
+/loc-de-joaca/tarife-program/ și /contact/ pentru informația cea mai recentă.

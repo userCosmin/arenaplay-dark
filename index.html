@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FF2E93" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700;800&family=Oxanium:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Arena Play | Petreceri, Loc de joacă, Afterschool &amp; Arena VR mobilă</title>
+    <meta
+      name="description"
+      content="Arena Play - distracție, experiențe și educație. Petreceri pentru copii, Loc de joacă cu XR/VR, Afterschool și Arena VR mobilă la locația ta."
+    />
+    <!--
+      Hide the prerendered SEO/GEO markup (see scripts/prerender.mjs) from real
+      visitors until the React app mounts, so they never see an unstyled flash
+      of raw text. Non-JS crawlers (GPTBot, ClaudeBot, CCBot, etc.) never apply
+      CSS, so they still read the full text content underneath — only the
+      visual paint is affected. src/main.tsx removes this class right after
+      the initial render.
+    -->
+    <style>
+      #root.prerender-hidden {
+        visibility: hidden;
+      }
+    </style>
+    <!-- If JavaScript is unavailable, keep showing the real prerendered content
+         instead of a permanently blank page. -->
+    <noscript>
+      <style>
+        #root.prerender-hidden {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <div id="root" class="prerender-hidden"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

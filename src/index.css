@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-ink-900 antialiased font-sans;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1 {
+    @apply font-display text-ink-900;
+  }
+
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-ink-900;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-offset-2 ring-brand-500 rounded-md;
+  }
+
+  ::selection {
+    @apply bg-brand-200 text-ink-900;
+  }
+}
+
+@layer components {
+  .container-arena {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-10;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* --- Neon theme utilities (venue-inspired) --- */
+
+  /* Glowing neon-tube text, like the ARENA sign on the wall. */
+  .neon-text-cyan {
+    color: #e8feff;
+    text-shadow:
+      0 0 4px rgb(0 217 245 / 0.9),
+      0 0 12px rgb(0 217 245 / 0.75),
+      0 0 32px rgb(0 217 245 / 0.5),
+      0 0 72px rgb(0 217 245 / 0.3);
+  }
+
+  .neon-text-magenta {
+    color: #fff0fb;
+    text-shadow:
+      0 0 4px rgb(241 63 208 / 0.9),
+      0 0 12px rgb(241 63 208 / 0.75),
+      0 0 32px rgb(241 63 208 / 0.5),
+      0 0 72px rgb(241 63 208 / 0.3);
+  }
+
+  /* Hollow outline lettering — the venue signage is outline, not solid. */
+  .neon-outline {
+    color: transparent;
+    -webkit-text-stroke: 2px #e8feff;
+    text-shadow:
+      0 0 10px rgb(0 217 245 / 0.7),
+      0 0 40px rgb(0 217 245 / 0.4);
+  }
+
+  /* Glossy reflective floor, as under the play area. */
+  .floor-sheen {
+    background-image: linear-gradient(
+      to bottom,
+      rgb(139 68 229 / 0.18) 0%,
+      rgb(0 217 245 / 0.08) 35%,
+      transparent 70%
+    );
+  }
+}
+
+@layer utilities {
+  /* Slow neon flicker — subtle, not seizure-inducing. */
+  @keyframes neon-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.82;
+    }
+  }
+
+  .animate-neon-pulse {
+    animation: neon-pulse 4s ease-in-out infinite;
+  }
+
+  /*
+   * Scoped dark theme, applied by the homepage.
+   *
+   * The shared content sections (WhatAreYouLookingFor, Gallery, LocationHours,
+   * FAQSection, Accordion) are light by design and are reused by the inner
+   * pages, which stay light. Rather than threading a theme prop through them,
+   * the homepage wraps them in .neon-page and remaps only the handful of
+   * surface/ink utilities they use. Nothing here applies outside .neon-page,
+   * so every other page is unaffected.
+   */
+  .neon-page :is(.bg-white, .bg-ink-50, .bg-ink-950) {
+    background-color: transparent !important;
+  }
+
+  .neon-page .bg-ink-100 {
+    background-color: rgb(255 255 255 / 0.06) !important;
+  }
+
+  .neon-page :is(.text-ink-900, .text-ink-800) {
+    color: #ffffff !important;
+  }
+
+  .neon-page :is(.text-ink-700, .text-ink-600) {
+    color: rgb(255 255 255 / 0.78) !important;
+  }
+
+  .neon-page .text-ink-500 {
+    color: rgb(255 255 255 / 0.6) !important;
+  }
+
+  .neon-page :is(.text-brand-500, .text-brand-600) {
+    color: #00d9f5 !important;
+  }
+
+  .neon-page .divide-ink-200 > :not([hidden]) ~ :not([hidden]) {
+    border-color: rgb(255 255 255 / 0.12) !important;
+  }
+
+  /* Cards read as lit glass panels rather than paper. */
+  .neon-page .shadow-card {
+    background-color: rgb(255 255 255 / 0.04) !important;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow: none !important;
+    backdrop-filter: blur(8px);
+  }
+
+  /* Circuit trace dash travel, echoing the PCB art on the walls. */
+  @keyframes trace-flow {
+    to {
+      stroke-dashoffset: -400;
+    }
+  }
+
+  .animate-trace-flow {
+    animation: trace-flow 12s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

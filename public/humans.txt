@@ -1,0 +1,12 @@
+/* TEAM */
+Business: Arena Play SRL
+Site: https://www.arenaplay.ro
+Location: Alba Iulia, Romania
+Contact: contact [at] arenaplay.ro
+
+/* SITE */
+Last update: 2026-08-12
+Standards: HTML5, CSS3 (Tailwind), WCAG 2.1 AA
+Components: React 19, TypeScript, Vite, React Router, Framer Motion
+Software: Vite, Tailwind CSS, ESLint, Prettier
+Hosting: Cloudflare Pages
