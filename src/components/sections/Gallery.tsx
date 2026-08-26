@@ -22,7 +22,7 @@ export function Gallery({ category, title = 'Galerie' }: GalleryProps) {
         slidesPerView={1.15}
         autoplay={{ delay: 4000, disableOnInteraction: true }}
         breakpoints={{ 640: { slidesPerView: 2.2 }, 1024: { slidesPerView: 3.3 } }}
-        className="!overflow-visible"
+        grabCursor
       >
         {images.map((image) => (
           <SwiperSlide key={image.id}>

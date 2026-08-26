@@ -58,7 +58,7 @@ export default function HomePage() {
         transparent so this shows through, and .neon-page remaps the shared
         light sections to dark. See index.css.
       */}
-      <div className="neon-page relative bg-void-800">
+      <div className="neon-page relative overflow-x-clip bg-void-800">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,217,245,0.12),transparent_55%)]"
           aria-hidden="true"

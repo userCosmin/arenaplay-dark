@@ -86,7 +86,7 @@ export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
         spaceBetween={16}
         slidesPerView={1.15}
         breakpoints={{ 640: { slidesPerView: 2.2 }, 1024: { slidesPerView: 3.3 } }}
-        className="!overflow-visible"
+        grabCursor
       >
         {galleryVideos.map((video, index) => (
           <SwiperSlide key={video.id}>
