@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
 import { Volume2, VolumeX } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { galleryVideos } from '@/data/videos';
 import 'swiper/css';
+import 'swiper/css/navigation';
 
 interface VideoGalleryProps {
   title?: string;
@@ -83,10 +86,19 @@ export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
       <h2 className="mb-10 font-heading text-display-md font-extrabold text-ink-900">{title}</h2>
 
       <Swiper
+        modules={[Navigation]}
         spaceBetween={16}
         slidesPerView={1.15}
         breakpoints={{ 640: { slidesPerView: 2.2 }, 1024: { slidesPerView: 3.3 } }}
+        navigation
         grabCursor
+        touchEventsTarget="container"
+        style={
+          {
+            '--swiper-navigation-color': '#ffffff',
+            '--swiper-navigation-size': '26px',
+          } as CSSProperties
+        }
       >
         {galleryVideos.map((video, index) => (
           <SwiperSlide key={video.id}>
@@ -102,7 +114,7 @@ export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
                 playsInline
                 preload="metadata"
                 controls={reducedMotion}
-                className="h-full w-full object-cover"
+                className={`h-full w-full object-cover ${reducedMotion ? '' : 'pointer-events-none'}`}
               />
 
               {!reducedMotion && (
