@@ -13,7 +13,7 @@ import { Honeypot } from '@/components/ui/Honeypot';
 import { partyBookingSchema, type PartyBookingFormData } from '@/utils/validation';
 import { submitPartyBooking } from '@/services/bookingService';
 import { trackEvent } from '@/utils/analytics';
-import { partyPackages } from '@/data/packages';
+import { partyPackages, partyTimeSlots } from '@/data/packages';
 
 interface PartyBookingFormProps {
   defaultPackageId?: string;
@@ -67,12 +67,23 @@ export function PartyBookingForm({ defaultPackageId }: PartyBookingFormProps) {
         </FormField>
       </div>
 
+      <FormField label="Interval orar" htmlFor="party-time" required error={errors.preferredTime?.message}>
+        <Select id="party-time" hasError={!!errors.preferredTime} {...register('preferredTime')}>
+          <option value="">Alege intervalul</option>
+          {partyTimeSlots.map((slot) => (
+            <option key={slot.id} value={slot.label}>
+              {slot.label}
+            </option>
+          ))}
+        </Select>
+      </FormField>
+
       <FormField label="Pachet dorit" htmlFor="party-package" required error={errors.packageId?.message}>
         <Select id="party-package" hasError={!!errors.packageId} {...register('packageId')}>
           <option value="">Alege un pachet</option>
           {partyPackages.map((pkg) => (
             <option key={pkg.id} value={pkg.id}>
-              {pkg.name} — {pkg.price} {pkg.priceUnit}
+              {pkg.name} — {pkg.price} {pkg.priceUnit} ({pkg.kids})
             </option>
           ))}
         </Select>

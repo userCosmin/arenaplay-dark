@@ -34,7 +34,7 @@ export default function PlaygroundPage() {
       </PageHero>
 
       <Section className="bg-white">
-        <h2 className="mb-10 font-heading text-display-md font-extrabold text-ink-900">6 activități, un singur loc</h2>
+        <h2 className="mb-10 font-heading text-display-md font-extrabold text-ink-900">{activities.length} activități, un singur loc</h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {activities.map((activity) => (
             <a

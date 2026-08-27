@@ -27,18 +27,27 @@ choose package → we confirm), gallery and FAQ. Primary CTA: "Rezervă petrecer
 "Vezi pachete" → /petreceri-vr/pachete/.
 
 ## Page: Pachete & Rezervare (/petreceri-vr/pachete/)
-A single package — 80 lei/copil, minim 10 copii, 3 ore, acces exclusiv la toate echipamentele —
-plus a booking form (name, phone, date, kid count, package, message). Submission is a request,
-not an automatic confirmation.
+Two packages, both 3 hours and with identical perks — only group size and price differ:
+Pachetul 1 (100 lei/copil, 4–9 copii) and Pachetul 2 (80 lei/copil, 10–20 copii). Both include
+acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată inclusă and 10% reducere
+la Pizza și Fast Food Antik. Bookable start slots: 11:30–14:30, 15:00–18:00, 18:30–21:30. Booking
+form (name, phone, date, time slot, kid count, package, message). Submission is a request, not an
+automatic confirmation.
 
 ## Page: Loc de joacă (/loc-de-joaca/)
-Title: "LOC DE JOACĂ ARENA PLAY". Subtitle: "Intră în joc." Grid of 6 activities (XR zone, VR zone,
-car racing simulator, flight simulator, PlayStation zone, extra activities), each linking to
-detail anchors on /loc-de-joaca/activitati/. Schedule block: Saturday–Sunday 13:30–21:30 (walk-in),
-Monday–Friday by reservation only.
+Title: "LOC DE JOACĂ ARENA PLAY". Subtitle: "Intră în joc." Grid of 8 activities — VR Dinamic
+(Journey, Lasertag), VR Static (Job Simulator, Beat Saber), Simulator Profesional Auto, Simulator
+Profesional de Zbor, PlayStation zone, extra activities — each linking to detail anchors on
+/loc-de-joaca/activitati/. Maximum 6 people in the arena at any one time. Schedule block:
+Saturday–Sunday 13:30–21:30 (walk-in), Monday–Friday by reservation only.
 
 ## Page: Activități Loc de joacă (/loc-de-joaca/activitati/)
 Detail cards per activity: name, description, recommended age, player count, session duration.
+Every activity is chosen for its learning angle as well as entertainment: Journey teaches through
+guided trips to the solar system, jungle and savanna; Lasertag builds teamwork and physical
+movement; Job Simulator lets children try out trades; Beat Saber develops hand-foot coordination
+through movement and dance; the car simulator builds skills toward a driving licence; the flight
+simulator tests aptitude for a pilot career.
 
 ## Page: Program & Tarife Loc de joacă (/loc-de-joaca/tarife-program/)
 Opening hours block first, then two pricing groups: weekend walk-in access (30 lei/sesiune, o

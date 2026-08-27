@@ -146,7 +146,7 @@ const routes = [
       <h1>JOACĂ. DISTRACȚIE. EDUCAȚIE.</h1>
       <p>Loc de joacă • Petreceri VR • Arena VR mobilă • Afterschool</p>
       <p>Arena Play este locul unde distracția întâlnește educația: petreceri pentru copii, loc de joacă cu tehnologie XR/VR, afterschool și Arena VR mobilă — experiența Arena Play adusă la tine.</p>
-      <p>Echipamente VR &amp; XR de ultimă generație · Până la 10 jucători simultan în arenă · O sesiune de joc durează 20 de minute · 4 servicii sub același acoperiș.</p>
+      <p>Echipamente VR &amp; XR de ultimă generație · Maximum 6 persoane simultan în arenă · O sesiune de joc durează 20 de minute · 4 servicii sub același acoperiș.</p>
       ${section('Alege experiența Arena Play', linkList([
         { href: '/loc-de-joaca/', label: 'Loc de joacă Arena Play', desc: 'Intră în joc.' },
         { href: '/petreceri-vr/', label: 'Petreceri VR', desc: 'Tu aduci invitații. Noi pregătim experiența.' },
@@ -183,14 +183,18 @@ const routes = [
   {
     path: '/petreceri-vr/pachete/',
     title: 'Pachete Petreceri & Rezervare | Arena Play',
-    description: 'Pachetul de petrecere Arena Play — 80 lei/copil, minim 10 copii, acces exclusiv la toate echipamentele — și rezervă direct online.',
+    description: 'Două pachete de petrecere Arena Play: 100 lei/copil pentru 4–9 copii și 80 lei/copil pentru 10–20 copii, 3 ore, acces exclusiv la toate echipamentele. Rezervă direct online.',
     breadcrumb: [{ label: 'Petreceri VR', href: '/petreceri-vr/' }, { label: 'Pachete & Rezervare', href: '/petreceri-vr/pachete/' }],
     jsonLd: [breadcrumbSchema([{ label: 'Petreceri VR', href: '/petreceri-vr/' }, { label: 'Pachete & Rezervare', href: '/petreceri-vr/pachete/' }])],
     body: `
       <h1>Alege pachetul potrivit</h1>
-      <p>Un singur pachet, simplu și transparent — fără variante ascunse.</p>
-      ${section('Pachet disponibil', `
-        <article><h3>Pachet Petrecere — 80 lei / copil</h3><p>3 ore, minim 10 copii. Include: acces exclusiv la toate echipamentele, spațiu privat rezervat, animator dedicat pentru toată durata petrecerii, decor tematic.</p></article>
+      <p>Două pachete, aceleași beneficii — diferă doar mărimea grupului.</p>
+      ${section('Pachete disponibile', `
+        <article><h3>Pachetul 1 — 100 lei / copil</h3><p>3 ore, 4 – 9 copii. Include: acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată inclusă, 10% reducere la Pizza și Fast Food Antik.</p></article>
+        <article><h3>Pachetul 2 — 80 lei / copil</h3><p>3 ore, 10 – 20 copii. Include: acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată inclusă, 10% reducere la Pizza și Fast Food Antik.</p></article>
+      `)}
+      ${section('Ore de începere disponibile', `
+        <ul><li>11:30 – 14:30</li><li>15:00 – 18:00</li><li>18:30 – 21:30</li></ul>
       `)}
     `,
   },
@@ -203,11 +207,13 @@ const routes = [
     body: `
       <h1>LOC DE JOACĂ ARENA PLAY</h1>
       <p>Intră în joc.</p>
-      ${section('6 activități, un singur loc', linkList([
-        { href: '/loc-de-joaca/activitati/#xr', label: 'Zonă XR', desc: 'Experiențe de realitate extinsă, interactive și în mișcare.' },
-        { href: '/loc-de-joaca/activitati/#vr', label: 'Zonă VR', desc: 'Căști de realitate virtuală cu jocuri și experiențe imersive.' },
-        { href: '/loc-de-joaca/activitati/#simulator-auto', label: 'Simulator Auto', desc: 'Simulatoare de curse cu scaune cu feedback.' },
-        { href: '/loc-de-joaca/activitati/#simulator-zbor', label: 'Simulator de Zbor', desc: 'Cabină de pilotaj realistă.' },
+      ${section('8 activități, un singur loc', linkList([
+        { href: '/loc-de-joaca/activitati/#vr-dinamic-journey', label: 'VR Dinamic — Journey', desc: 'Excursii în sistemul solar, junglă și savană; copiii învață interactiv.' },
+        { href: '/loc-de-joaca/activitati/#vr-dinamic-lasertag', label: 'VR Dinamic — Lasertag', desc: 'Joc în echipă: copiii fac mișcare, se ajută și colaborează.' },
+        { href: '/loc-de-joaca/activitati/#vr-static-job-simulator', label: 'VR Static — Job Simulator', desc: 'Jocuri recreativ-educative în care copiii experimentează meserii.' },
+        { href: '/loc-de-joaca/activitati/#vr-static-beat-saber', label: 'VR Static — Beat Saber', desc: 'Coordonare mână-picior prin mișcare și dans pe ritm.' },
+        { href: '/loc-de-joaca/activitati/#simulator-auto', label: 'Simulator Profesional Auto', desc: 'Dezvoltă abilitățile necesare pentru obținerea permisului auto.' },
+        { href: '/loc-de-joaca/activitati/#simulator-zbor', label: 'Simulator Profesional de Zbor', desc: 'Testează aptitudinile pentru o carieră de pilot.' },
         { href: '/loc-de-joaca/activitati/#playstation', label: 'Zonă PlayStation', desc: 'Console de ultimă generație și o selecție variată de jocuri.' },
         { href: '/loc-de-joaca/activitati/#extra', label: 'Activități Extra', desc: 'Jocuri de societate, șah, zonă de creativitate.' },
       ]))}
@@ -217,18 +223,20 @@ const routes = [
   },
   {
     path: '/loc-de-joaca/activitati/',
-    title: 'Activități Loc de joacă — XR, VR, Simulatoare, PlayStation | Arena Play',
-    description: 'Descoperă toate activitățile din Locul de joacă Arena Play: zonă XR, VR, simulator auto, simulator de zbor, PlayStation și activități extra.',
+    title: 'Activități Loc de joacă — VR Dinamic, VR Static, Simulatoare | Arena Play',
+    description: 'Toate activitățile din Locul de joacă Arena Play: VR Dinamic (Journey, Lasertag), VR Static (Job Simulator, Beat Saber), simulator auto și de zbor, PlayStation.',
     breadcrumb: [{ label: 'Loc de joacă', href: '/loc-de-joaca/' }, { label: 'Activități', href: '/loc-de-joaca/activitati/' }],
     jsonLd: [breadcrumbSchema([{ label: 'Loc de joacă', href: '/loc-de-joaca/' }, { label: 'Activități', href: '/loc-de-joaca/activitati/' }])],
     body: `
       <h1>Activitățile Locului de joacă</h1>
-      <p>De la XR și VR la simulatoare de curse și zbor — fiecare zonă are propriul ei nivel de adrenalină.</p>
+      <p>Fiecare activitate este aleasă atât pentru distracție, cât și pentru ce exersează copilul. În arenă au acces maximum 6 persoane simultan.</p>
       ${section('Detalii activități', `
-        <article id="xr"><h3>Zonă XR</h3><p>Experiențe de realitate extinsă, interactive și în mișcare, pentru grupuri de prieteni. Vârstă: 8+. Jucători: 1-4. Durată: 15-20 min/sesiune.</p></article>
-        <article id="vr"><h3>Zonă VR</h3><p>Căști de realitate virtuală cu jocuri și experiențe imersive pentru toate vârstele. Vârstă: 6+. Jucători: 1-2. Durată: 10-15 min/sesiune.</p></article>
-        <article id="simulator-auto"><h3>Simulator Auto</h3><p>Simulatoare de curse cu scaune cu feedback, ecran curbat și volan de competiție. Vârstă: 7+. Durată: 10 min/sesiune.</p></article>
-        <article id="simulator-zbor"><h3>Simulator de Zbor</h3><p>Cabină de pilotaj realistă pentru pasionații de aviație. Vârstă: 8+. Durată: 10-15 min/sesiune.</p></article>
+        <article id="vr-dinamic-journey"><h3>VR Dinamic — Journey</h3><p>Excursii în sistemul solar, în junglă și în savană. Copiii explorează și învață interactiv, ghidați prin fiecare mediu. Vârstă: 6+. Până la 6 jucători. Durată: 20 min/sesiune.</p></article>
+        <article id="vr-dinamic-lasertag"><h3>VR Dinamic — Lasertag</h3><p>Joc în echipă care îi ține în mișcare: copiii se coordonează, se ajută între ei și colaborează pentru a câștiga. Vârstă: 7+. Până la 6 jucători. Durată: 20 min/sesiune.</p></article>
+        <article id="vr-static-job-simulator"><h3>VR Static — Job Simulator</h3><p>Jocuri recreativ-educative în care copiii experimentează meserii și rezolvă sarcini practice, pas cu pas. Vârstă: 6+. Jucători: 1-2. Durată: 15 min/sesiune.</p></article>
+        <article id="vr-static-beat-saber"><h3>VR Static — Beat Saber</h3><p>Prin mișcare și dans pe ritm, copiii își dezvoltă coordonarea mână-picior și simțul ritmului. Vârstă: 6+. Durată: 15 min/sesiune.</p></article>
+        <article id="simulator-auto"><h3>Simulator Profesional Auto</h3><p>Dezvoltă abilitățile necesare pentru obținerea permisului auto, într-un mediu sigur și controlat. Vârstă: 7+. Durată: 10 min/sesiune.</p></article>
+        <article id="simulator-zbor"><h3>Simulator Profesional de Zbor</h3><p>Cabină de pilotaj realistă prin care se poate testa dacă există aptitudini pentru o carieră de pilot. Vârstă: 8+. Durată: 10-15 min/sesiune.</p></article>
         <article id="playstation"><h3>Zonă PlayStation</h3><p>Console de ultimă generație, canapele confortabile și o selecție variată de jocuri. Acces liber, 1-4 jucători.</p></article>
         <article id="extra"><h3>Activități Extra</h3><p>Jocuri de societate, șah, zonă de creativitate și alte activități rotative. Acces liber.</p></article>
       `)}
@@ -250,7 +258,8 @@ const routes = [
       `)}
       ${section('Tarife — În timpul săptămânii (doar cu rezervare, acces exclusiv la toate echipamentele)', `
         <ul>
-          <li>Petrecere — acces exclusiv — 80 lei / copil (minim 10 copii, 3 ore)</li>
+          <li>Petrecere — Pachetul 1 — 100 lei / copil (4 – 9 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
+          <li>Petrecere — Pachetul 2 — 80 lei / copil (10 – 20 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
           <li>Loc de joacă — acces privat — 100 lei / copil (minim 4 copii, 2 ore, acces exclusiv la toate echipamentele)</li>
         </ul>
       `)}

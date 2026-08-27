@@ -14,11 +14,18 @@ export const playgroundPricingWeekend: PriceItem[] = [
 /** Luni–Vineri — doar cu rezervare, acces exclusiv la toate echipamentele. */
 export const playgroundPricingWeekday: PriceItem[] = [
   {
-    id: 'petrecere-privat',
-    label: 'Petrecere — acces exclusiv',
+    id: 'petrecere-pachet-1',
+    label: 'Petrecere — Pachetul 1',
+    price: 100,
+    unit: 'lei / copil',
+    note: '4 – 9 copii · 3 ore · acces exclusiv la toate echipamentele',
+  },
+  {
+    id: 'petrecere-pachet-2',
+    label: 'Petrecere — Pachetul 2',
     price: 80,
     unit: 'lei / copil',
-    note: 'Minim 10 copii · 3 ore',
+    note: '10 – 20 copii · 3 ore · acces exclusiv la toate echipamentele',
   },
   {
     id: 'loc-de-joaca-privat',

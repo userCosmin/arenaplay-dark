@@ -22,8 +22,8 @@ const stats = [
   },
   {
     icon: Users,
-    value: 'Până la 10',
-    label: 'Jucători simultan în arenă',
+    value: 'Până la 6',
+    label: 'Persoane simultan în arenă',
     tone: 'text-neon-magenta',
   },
   {

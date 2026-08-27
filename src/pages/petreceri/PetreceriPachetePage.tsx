@@ -20,20 +20,20 @@ export default function PetreceriPachetePage() {
     <>
       <SEO
         title="Pachete Petreceri & Rezervare"
-        description="Pachetul de petrecere Arena Play — 80 lei/copil, minim 10 copii, acces exclusiv la toate echipamentele — și rezervă direct online."
+        description="Două pachete de petrecere Arena Play: 100 lei/copil pentru 4–9 copii și 80 lei/copil pentru 10–20 copii, 3 ore, acces exclusiv la toate echipamentele. Rezervă direct online."
         path="/petreceri-vr/pachete/"
       />
       <JsonLd data={breadcrumbSchema([{ label: 'Acasă', href: '/' }, ...breadcrumbs])} />
       <PageHero
         eyebrow="Pachete & Rezervare"
         title="Alege pachetul potrivit"
-        subtitle="Un singur pachet, simplu și transparent — fără variante ascunse."
+        subtitle="Două pachete, aceleași beneficii — diferă doar mărimea grupului."
         accent="petreceri"
         breadcrumbs={breadcrumbs}
       />
 
       <Section className="bg-white" id="pachete">
-        <div className="mx-auto grid max-w-md grid-cols-1 gap-6">
+        <div className="mx-auto grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">
           {partyPackages.map((pkg) => (
             <Card
               key={pkg.id}

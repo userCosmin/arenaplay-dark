@@ -32,6 +32,7 @@ export const partyBookingSchema = z.object({
   phone: phoneSchema,
   email: optionalEmailSchema,
   preferredDate: z.string().min(1, 'Alege o dată dorită.'),
+  preferredTime: z.string().min(1, 'Alege un interval orar.'),
   kidsCount: z.string().min(1, 'Introdu numărul aproximativ de copii.'),
   packageId: z.string().min(1, 'Alege un pachet.'),
   message: messageSchema,

@@ -10,8 +10,8 @@ experiențe la sediu, cât și servicii mobile care se deplasează la client.
 ## Servicii
 
 - [Petreceri pentru copii](https://www.arenaplay.ro/petreceri-vr/): petreceri tematice cu spațiu privat, animație și pachete complete.
-- [Pachete & Rezervare Petreceri](https://www.arenaplay.ro/petreceri-vr/pachete/): pachet unic (80 lei/copil, minim 10 copii) și formular de rezervare.
-- [Loc de joacă](https://www.arenaplay.ro/loc-de-joaca/): zonă de joacă tehnologică cu XR, VR, simulatoare auto/zbor și PlayStation.
+- [Pachete & Rezervare Petreceri](https://www.arenaplay.ro/petreceri-vr/pachete/): două pachete (100 lei/copil pentru 4–9 copii, 80 lei/copil pentru 10–20 copii, 3 ore) și formular de rezervare.
+- [Loc de joacă](https://www.arenaplay.ro/loc-de-joaca/): zonă de joacă tehnologică cu VR Dinamic, VR Static, simulatoare profesionale auto/zbor și PlayStation. Maximum 6 persoane simultan în arenă.
 - [Activități Loc de joacă](https://www.arenaplay.ro/loc-de-joaca/activitati/): detalii despre fiecare activitate.
 - [Program & Tarife Loc de joacă](https://www.arenaplay.ro/loc-de-joaca/tarife-program/): orar de funcționare și prețuri.
 - [Afterschool](https://www.arenaplay.ro/afterschool/): program educațional pentru clasele I-IV, luni-vineri 12:00-18:00.
