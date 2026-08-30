@@ -9,6 +9,7 @@ const PetreceriPachetePage = lazy(() => import('@/pages/petreceri/PetreceriPache
 const PlaygroundPage = lazy(() => import('@/pages/playground/PlaygroundPage'));
 const PlaygroundActivitatiPage = lazy(() => import('@/pages/playground/PlaygroundActivitatiPage'));
 const PlaygroundTarifeProgramPage = lazy(() => import('@/pages/playground/PlaygroundTarifeProgramPage'));
+const PlaygroundJocuriPage = lazy(() => import('@/pages/playground/PlaygroundJocuriPage'));
 const AfterschoolPage = lazy(() => import('@/pages/afterschool/AfterschoolPage'));
 const AfterschoolProgramPage = lazy(() => import('@/pages/afterschool/AfterschoolProgramPage'));
 const AfterschoolInscrieriPage = lazy(() => import('@/pages/afterschool/AfterschoolInscrieriPage'));
@@ -58,6 +59,7 @@ export default function App() {
           <Route path="/loc-de-joaca/" element={<PlaygroundPage />} />
           <Route path="/loc-de-joaca/activitati/" element={<PlaygroundActivitatiPage />} />
           <Route path="/loc-de-joaca/tarife-program/" element={<PlaygroundTarifeProgramPage />} />
+          <Route path="/loc-de-joaca/jocuri/" element={<PlaygroundJocuriPage />} />
 
           <Route path="/afterschool/" element={<AfterschoolPage />} />
           <Route path="/afterschool/program/" element={<AfterschoolProgramPage />} />

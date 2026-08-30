@@ -103,6 +103,26 @@ export interface GalleryImage {
   category: ServiceSlug | 'general';
 }
 
+export type GameAudience = 'kids' | 'teen' | 'adult';
+
+export interface VRGame {
+  id: string;
+  name: string;
+  category: string;
+  /** Drives the split between the children's selection and the 13+/17+ titles. */
+  audience: GameAudience;
+  minAge: string;
+  players: string;
+  multiplayer: boolean;
+  featured?: boolean;
+  tagline: string;
+  description: string;
+  /** What the child actually practises — the parent-facing argument. */
+  benefits: string[];
+  /** How it maps to school activities; null when the title is not for schools. */
+  schoolFit: string | null;
+}
+
 export interface GalleryVideo {
   id: string;
   /** Absolute URL to an MP4 (H.264/AAC) served from the CDN. */

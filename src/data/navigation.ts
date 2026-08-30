@@ -9,6 +9,7 @@ export const mainNavigation: NavItem[] = [
     children: [
       { label: 'Prezentare', href: '/loc-de-joaca/', description: 'Intră în joc' },
       { label: 'Activități', href: '/loc-de-joaca/activitati/', description: 'XR, VR, simulatoare și mai mult' },
+      { label: 'Jocuri VR', href: '/loc-de-joaca/jocuri/', description: 'Catalogul complet și ce dezvoltă' },
       { label: 'Program & Tarife', href: '/loc-de-joaca/tarife-program/', description: 'Orar și prețuri' },
     ],
   },
