@@ -1,10 +1,10 @@
 import { PartyPopper, Sparkles, Users, ShieldCheck } from 'lucide-react';
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
-import { heroVideos } from '@/data/videos';
+import { heroVideos, petreceriGalleryVideos } from '@/data/videos';
 import { FeatureGrid } from '@/components/sections/FeatureGrid';
 import { HowItWorks } from '@/components/sections/HowItWorks';
-import { Gallery } from '@/components/sections/Gallery';
+import { VideoGallery } from '@/components/sections/VideoGallery';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { Button } from '@/components/ui/Button';
 
@@ -55,7 +55,7 @@ export default function PetreceriPage() {
         ]}
       />
 
-      <Gallery category="petreceri" title="Galerie petreceri" />
+      <VideoGallery title="Galerie petreceri" videos={petreceriGalleryVideos} />
       <FAQSection category="petreceri" title="Întrebări frecvente despre petreceri" />
     </>
   );

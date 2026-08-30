@@ -1,10 +1,10 @@
 import { Gamepad2, Clock, Tag, ListChecks } from 'lucide-react';
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
-import { heroVideos } from '@/data/videos';
+import { heroVideos, playgroundGalleryVideos } from '@/data/videos';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
-import { Gallery } from '@/components/sections/Gallery';
+import { VideoGallery } from '@/components/sections/VideoGallery';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { activities } from '@/data/activities';
 import { siteConfig } from '@/config/site.config';
@@ -88,7 +88,7 @@ export default function PlaygroundPage() {
         </div>
       </Section>
 
-      <Gallery category="playground" title="Galerie Loc de joacă" />
+      <VideoGallery title="Galerie Loc de joacă" videos={playgroundGalleryVideos} />
       <FAQSection category="playground" title="Întrebări frecvente despre Locul de joacă" />
     </>
   );

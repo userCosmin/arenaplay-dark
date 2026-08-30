@@ -4,11 +4,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import { Section } from '@/components/ui/Section';
 import { galleryVideos } from '@/data/videos';
+import type { GalleryVideo } from '@/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 interface VideoGalleryProps {
   title?: string;
+  /** Defaults to the homepage sequence; pages pass their own ordering. */
+  videos?: GalleryVideo[];
 }
 
 /**
@@ -22,7 +25,7 @@ interface VideoGalleryProps {
  * The clips have no sound by design, so there is no audio control — muted
  * is also what lets them autoplay at all under browser policy.
  */
-export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
+export function VideoGallery({ title = 'Galerie', videos = galleryVideos }: VideoGalleryProps) {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [reducedMotion, setReducedMotion] = useState(false);
 
@@ -58,7 +61,7 @@ export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
     const current = videoRefs.current.filter(Boolean) as HTMLVideoElement[];
     current.forEach((video) => observer.observe(video));
     return () => observer.disconnect();
-  }, [reducedMotion]);
+  }, [reducedMotion, videos]);
 
   return (
     <Section className="bg-white">
@@ -79,7 +82,7 @@ export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
           } as CSSProperties
         }
       >
-        {galleryVideos.map((video, index) => (
+        {videos.map((video, index) => (
           <SwiperSlide key={video.id}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-ink-100">
               <video
