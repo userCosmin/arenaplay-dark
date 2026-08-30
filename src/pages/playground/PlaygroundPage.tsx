@@ -1,6 +1,7 @@
 import { Gamepad2, Clock, Tag, ListChecks } from 'lucide-react';
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
+import { heroVideos } from '@/data/videos';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { Gallery } from '@/components/sections/Gallery';
@@ -21,6 +22,7 @@ export default function PlaygroundPage() {
         title="LOC DE JOACĂ ARENA PLAY"
         subtitle="Intră în joc."
         accent="playground"
+        backgroundVideo={heroVideos.playground}
         breadcrumbs={[{ label: 'Loc de joacă', href: '/loc-de-joaca/' }]}
       >
         <div className="flex flex-wrap gap-4">

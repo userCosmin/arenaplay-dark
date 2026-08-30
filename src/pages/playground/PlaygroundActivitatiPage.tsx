@@ -1,5 +1,6 @@
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
+import { heroVideos } from '@/data/videos';
 import { Section } from '@/components/ui/Section';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -24,6 +25,7 @@ export default function PlaygroundActivitatiPage() {
         title="Activitățile Locului de joacă"
         subtitle="De la XR și VR la simulatoare de curse și zbor — fiecare zonă are propriul ei nivel de adrenalină."
         accent="playground"
+        backgroundVideo={heroVideos.playground}
         breadcrumbs={breadcrumbs}
       />
 

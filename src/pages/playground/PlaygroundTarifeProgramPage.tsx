@@ -1,6 +1,7 @@
 import { Clock } from 'lucide-react';
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
+import { heroVideos } from '@/data/videos';
 import { Section } from '@/components/ui/Section';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -33,6 +34,7 @@ export default function PlaygroundTarifeProgramPage() {
         title="Program, tarife și oferte"
         subtitle="Informația practică de care ai nevoie, fără să cauți în imagini promoționale."
         accent="playground"
+        backgroundVideo={heroVideos.playground}
         breadcrumbs={breadcrumbs}
       />
 
