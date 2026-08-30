@@ -5,6 +5,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import type { BreadcrumbEntry } from '@/types';
 import { cn } from '@/utils/cn';
 import { CursorGlow } from '@/components/effects/CursorGlow';
+import { VideoBackdrop } from '@/components/effects/VideoBackdrop';
 
 type Accent = 'petreceri' | 'playground' | 'afterschool' | 'arenamobila';
 
@@ -31,13 +32,21 @@ interface PageHeroProps {
   accent: Accent;
   breadcrumbs: BreadcrumbEntry[];
   children?: ReactNode;
+  /** Optional decorative footage behind the hero; always muted. */
+  backgroundVideo?: string;
 }
 
-export function PageHero({ eyebrow, title, subtitle, accent, breadcrumbs, children }: PageHeroProps) {
+export function PageHero({ eyebrow, title, subtitle, accent, breadcrumbs, children, backgroundVideo }: PageHeroProps) {
   const isLight = lightText.includes(accent);
 
   return (
     <section className={cn('relative overflow-hidden bg-gradient-to-br pb-16 pt-32 sm:pb-20 sm:pt-40', accentGradients[accent])}>
+      {backgroundVideo && (
+        <VideoBackdrop
+          src={backgroundVideo}
+          overlayClassName={isLight ? 'bg-white/70' : 'bg-ink-950/60'}
+        />
+      )}
       <CursorGlow color={accentHex[accent]} />
       <Container className="relative z-10">
         <Breadcrumbs

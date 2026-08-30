@@ -8,6 +8,9 @@ const CDN = 'https://pub-4e7e1030054b4b2cbda4aa2312ae0024.r2.dev';
  * Labels double as the accessible name for each clip, so keep them
  * descriptive rather than decorative.
  */
+/** Decorative hero footage for the Petreceri VR pages. Muted, looped. */
+export const petreceriHeroVideo = `${CDN}/aniversare-arena-play-2-web.mp4`;
+
 export const galleryVideos: GalleryVideo[] = [
   { id: 'v2', src: `${CDN}/arenaplay-video-2.mp4`, label: 'Sesiune VR în arena principală' },
   { id: 'v12', src: `${CDN}/arenaplay-video-12.mp4`, label: 'Joc în echipă cu căști VR' },

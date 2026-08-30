@@ -1,6 +1,7 @@
 import { PartyPopper, Sparkles, Users, ShieldCheck } from 'lucide-react';
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
+import { petreceriHeroVideo } from '@/data/videos';
 import { FeatureGrid } from '@/components/sections/FeatureGrid';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Gallery } from '@/components/sections/Gallery';
@@ -20,6 +21,7 @@ export default function PetreceriPage() {
         title="PETRECERI PENTRU COPII"
         subtitle="Tu aduci invitații. Noi pregătim experiența."
         accent="petreceri"
+        backgroundVideo={petreceriHeroVideo}
         breadcrumbs={[{ label: 'Petreceri VR', href: '/petreceri-vr/' }]}
       >
         <div className="flex flex-wrap gap-4">
