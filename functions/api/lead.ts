@@ -2,9 +2,16 @@
  * Cloudflare Pages Function — POST /api/lead
  *
  * Receives a submission from one of the five site forms (Petreceri, Loc de
- * joacă, Afterschool, Arena VR mobilă, Contact), does basic server-side validation
- * and spam-trapping, then emails a formatted summary via Resend
- * (https://resend.com) to the configured notification inbox.
+ * joacă, Afterschool, Arena VR mobilă, Contact), does basic server-side
+ * validation and spam-trapping, then fans the lead out to up to three places:
+ *
+ *   1. Email via Resend        — always, and the only channel that can fail the request
+ *   2. Telegram                — instant push notification, if configured
+ *   3. Google Calendar         — only for submissions carrying a date, if configured
+ *
+ * Channels 2 and 3 are best-effort: a Telegram outage or a broken calendar
+ * webhook must never cost a real booking, so their failures are logged and
+ * swallowed rather than surfaced to the visitor.
  *
  * Required Cloudflare Pages environment variable:
  *   RESEND_API_KEY        — API key from resend.com (Settings → API Keys)
@@ -17,6 +24,10 @@
  *                              with no domain verification; once arenaplay.ro
  *                              is verified in Resend, switch this to e.g.
  *                              "Arena Play <notificari@arenaplay.ro>")
+ *   TELEGRAM_BOT_TOKEN       — from @BotFather
+ *   TELEGRAM_CHAT_ID         — chat or group id the bot posts into
+ *   CALENDAR_WEBHOOK_URL     — Google Apps Script web-app URL
+ *   CALENDAR_WEBHOOK_SECRET  — shared secret checked by that script
  *
  * Set these in the Cloudflare dashboard: Pages project → Settings →
  * Environment variables. For local testing with `wrangler pages dev`, put
@@ -27,6 +38,10 @@ interface Env {
   RESEND_API_KEY: string;
   LEAD_NOTIFICATION_EMAIL?: string;
   RESEND_FROM_EMAIL?: string;
+  TELEGRAM_BOT_TOKEN?: string;
+  TELEGRAM_CHAT_ID?: string;
+  CALENDAR_WEBHOOK_URL?: string;
+  CALENDAR_WEBHOOK_SECRET?: string;
 }
 
 type LeadType = 'petreceri' | 'playground' | 'afterschool' | 'arena-mobila' | 'contact';
@@ -46,6 +61,15 @@ const typeLabels: Record<LeadType, string> = {
   afterschool: 'Afterschool — solicitare de înscriere',
   'arena-mobila': 'Arena VR mobilă — solicitare de ofertă',
   contact: 'Formular de contact',
+};
+
+/** Short prefixes so a calendar month view stays readable. */
+const calendarPrefixes: Record<LeadType, string> = {
+  petreceri: 'Petrecere',
+  playground: 'Loc de joacă',
+  afterschool: 'Afterschool',
+  'arena-mobila': 'Arena VR mobilă',
+  contact: 'Contact',
 };
 
 const fieldLabels: Record<string, string> = {
@@ -75,13 +99,19 @@ function escapeHtml(value: string): string {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+/** Payload entries worth showing a human, in submission order. */
+function visibleEntries(payload: Record<string, unknown>): [string, string][] {
+  return Object.entries(payload)
+    .filter(([key, value]) => key !== 'consent' && key !== 'website' && value !== undefined && value !== '')
+    .map(([key, value]) => [fieldLabels[key] ?? key, String(value)]);
+}
+
 function buildEmailHtml(type: LeadType, payload: Record<string, unknown>): string {
-  const rows = Object.entries(payload)
-    .filter(([key, value]) => key !== 'consent' && value !== undefined && value !== '')
-    .map(([key, value]) => {
-      const label = fieldLabels[key] ?? key;
-      return `<tr><td style="padding:6px 12px;color:#666;font-weight:600;">${escapeHtml(label)}</td><td style="padding:6px 12px;">${escapeHtml(String(value))}</td></tr>`;
-    })
+  const rows = visibleEntries(payload)
+    .map(
+      ([label, value]) =>
+        `<tr><td style="padding:6px 12px;color:#666;font-weight:600;">${escapeHtml(label)}</td><td style="padding:6px 12px;">${escapeHtml(value)}</td></tr>`
+    )
     .join('');
 
   return `
@@ -91,6 +121,78 @@ function buildEmailHtml(type: LeadType, payload: Record<string, unknown>): strin
       <p style="color:#999;font-size:12px;margin-top:24px;">Trimis automat de pe arenaplay.ro</p>
     </div>
   `;
+}
+
+/**
+ * Telegram's HTML parse mode accepts a small tag subset; everything else must
+ * be escaped or the whole message is rejected with a 400.
+ */
+function buildTelegramMessage(type: LeadType, payload: Record<string, unknown>): string {
+  const lines = visibleEntries(payload)
+    .map(([label, value]) => `<b>${escapeHtml(label)}:</b> ${escapeHtml(value)}`)
+    .join('\n');
+
+  return `🔔 <b>${escapeHtml(typeLabels[type])}</b>\n\n${lines}`;
+}
+
+async function notifyTelegram(env: Env, type: LeadType, payload: Record<string, unknown>): Promise<void> {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+
+  const response = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: env.TELEGRAM_CHAT_ID,
+      text: buildTelegramMessage(type, payload),
+      parse_mode: 'HTML',
+      disable_web_page_preview: true,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Telegram ${response.status}: ${await response.text()}`);
+  }
+}
+
+/**
+ * Only submissions that actually name a day belong on a calendar. Contact and
+ * Afterschool enquiries have no date, so they are intentionally skipped.
+ */
+function extractBookingDate(payload: Record<string, unknown>): string | null {
+  const raw = payload.preferredDate ?? payload.eventDate;
+  if (typeof raw !== 'string' || !raw) return null;
+  // The date inputs emit ISO yyyy-mm-dd; anything else is not trustworthy.
+  return /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : null;
+}
+
+async function addCalendarEvent(env: Env, type: LeadType, payload: Record<string, unknown>): Promise<void> {
+  if (!env.CALENDAR_WEBHOOK_URL) return;
+
+  const date = extractBookingDate(payload);
+  if (!date) return;
+
+  const who = [payload.name, payload.parentName, payload.nameOrOrganization].find(
+    (value) => typeof value === 'string' && value
+  ) as string | undefined;
+
+  const response = await fetch(env.CALENDAR_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      secret: env.CALENDAR_WEBHOOK_SECRET ?? '',
+      title: `${calendarPrefixes[type]} — ${who ?? 'cerere nouă'}`,
+      date,
+      /** "11:30 – 14:30" when present; the script falls back to all-day. */
+      timeRange: typeof payload.preferredTime === 'string' ? payload.preferredTime : '',
+      details: visibleEntries(payload)
+        .map(([label, value]) => `${label}: ${value}`)
+        .join('\n'),
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Calendar ${response.status}: ${await response.text()}`);
+  }
 }
 
 function jsonResponse(body: unknown, status = 200): Response {
@@ -131,24 +233,40 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const replyTo = typeof body.payload.email === 'string' && body.payload.email ? body.payload.email : undefined;
 
   try {
-    const resendResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        subject: typeLabels[body.type],
-        html: buildEmailHtml(body.type, body.payload),
-        ...(replyTo ? { reply_to: replyTo } : {}),
+    // Fire all three in parallel; only the email result gates the response.
+    const [emailResult, telegramResult, calendarResult] = await Promise.allSettled([
+      fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from,
+          to: [to],
+          subject: typeLabels[body.type],
+          html: buildEmailHtml(body.type, body.payload),
+          ...(replyTo ? { reply_to: replyTo } : {}),
+        }),
       }),
-    });
+      notifyTelegram(env, body.type, body.payload),
+      addCalendarEvent(env, body.type, body.payload),
+    ]);
 
-    if (!resendResponse.ok) {
-      const errorText = await resendResponse.text();
-      console.error('Resend error:', errorText);
+    if (telegramResult.status === 'rejected') {
+      console.error('Telegram notification failed:', telegramResult.reason);
+    }
+    if (calendarResult.status === 'rejected') {
+      console.error('Calendar event failed:', calendarResult.reason);
+    }
+
+    if (emailResult.status === 'rejected') {
+      console.error('Resend request failed:', emailResult.reason);
+      return jsonResponse({ success: false, message: 'Trimiterea a eșuat. Te rugăm să ne suni direct.' }, 502);
+    }
+
+    if (!emailResult.value.ok) {
+      console.error('Resend error:', await emailResult.value.text());
       return jsonResponse({ success: false, message: 'Trimiterea a eșuat. Te rugăm să ne suni direct.' }, 502);
     }
 
