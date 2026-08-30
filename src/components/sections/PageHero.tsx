@@ -37,14 +37,21 @@ interface PageHeroProps {
 }
 
 export function PageHero({ eyebrow, title, subtitle, accent, breadcrumbs, children, backgroundVideo }: PageHeroProps) {
-  const isLight = lightText.includes(accent);
+  const overVideo = Boolean(backgroundVideo);
+  /**
+   * Normally light accents (afterschool) use dark copy on a pale gradient.
+   * Over unfiltered footage that is unreadable, so copy flips to white and
+   * leans on a shadow for contrast instead of a wash over the video.
+   */
+  const isLight = lightText.includes(accent) && !overVideo;
+  const videoTextShadow = overVideo ? '[text-shadow:0_2px_12px_rgba(0,0,0,0.65)]' : '';
 
   return (
     <section className={cn('relative overflow-hidden bg-gradient-to-br pb-16 pt-32 sm:pb-20 sm:pt-40', accentGradients[accent])}>
       {backgroundVideo && (
         <VideoBackdrop
           src={backgroundVideo}
-          overlayClassName={isLight ? 'bg-white/70' : 'bg-ink-950/60'}
+          overlayClassName={lightText.includes(accent) ? 'bg-transparent' : 'bg-ink-950/60'}
         />
       )}
       <CursorGlow color={accentHex[accent]} />
@@ -64,10 +71,10 @@ export function PageHero({ eyebrow, title, subtitle, accent, breadcrumbs, childr
               {eyebrow}
             </span>
           )}
-          <h1 className={cn('max-w-3xl text-balance font-display text-display-lg font-extrabold', isLight ? 'text-ink-900' : 'text-white')}>
+          <h1 className={cn('max-w-3xl text-balance font-display text-display-lg font-extrabold', isLight ? 'text-ink-900' : 'text-white', videoTextShadow)}>
             {title}
           </h1>
-          <p className={cn('mt-5 max-w-xl font-heading text-balance text-lg font-medium', isLight ? 'text-ink-600' : 'text-white/85')}>{subtitle}</p>
+          <p className={cn('mt-5 max-w-xl font-heading text-balance text-lg font-medium', isLight ? 'text-ink-600' : 'text-white/90', videoTextShadow)}>{subtitle}</p>
           {children && <div className="mt-8">{children}</div>}
         </motion.div>
       </Container>
