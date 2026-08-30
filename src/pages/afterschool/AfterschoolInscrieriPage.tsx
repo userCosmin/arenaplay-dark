@@ -1,6 +1,7 @@
 import { CheckCircle2 } from 'lucide-react';
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
+import { heroVideos } from '@/data/videos';
 import { Section } from '@/components/ui/Section';
 import { Card } from '@/components/ui/Card';
 import { AfterschoolEnrollForm } from '@/components/forms/AfterschoolEnrollForm';
@@ -30,6 +31,7 @@ export default function AfterschoolInscrieriPage() {
         title="Solicită un loc la Afterschool"
         subtitle="Locurile sunt limitate pe grupă de vârstă — completează formularul și te contactăm rapid."
         accent="afterschool"
+        backgroundVideo={heroVideos.afterschool}
         breadcrumbs={breadcrumbs}
       />
 

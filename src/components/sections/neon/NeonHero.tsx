@@ -4,6 +4,8 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { CircuitTraces } from '@/components/effects/CircuitTraces';
 import { CursorGlow } from '@/components/effects/CursorGlow';
+import { VideoBackdrop } from '@/components/effects/VideoBackdrop';
+import { heroVideos } from '@/data/videos';
 
 /**
  * Neon-variant hero: black wall, cyan tube signage, magenta accent and the
@@ -11,10 +13,13 @@ import { CursorGlow } from '@/components/effects/CursorGlow';
  */
 export function NeonHero() {
   return (
-    <section className="relative flex min-h-[94vh] items-center overflow-hidden pt-28">
+    <section className="relative flex min-h-[94vh] items-center overflow-hidden bg-void pt-28">
+      {/* Footage sits underneath, so the neon washes below still tint it */}
+      <VideoBackdrop src={heroVideos.home} overlayClassName="bg-void/70" />
+
       {/* Ambient neon wash: violet from the left strips, cyan from the ARENA sign */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(139,68,229,0.32),transparent_50%),radial-gradient(circle_at_82%_18%,rgba(0,217,245,0.26),transparent_48%),radial-gradient(circle_at_65%_88%,rgba(241,63,208,0.24),transparent_52%)]"
+        className="pointer-events-none absolute inset-0 mix-blend-screen bg-[radial-gradient(circle_at_15%_25%,rgba(139,68,229,0.32),transparent_50%),radial-gradient(circle_at_82%_18%,rgba(0,217,245,0.26),transparent_48%),radial-gradient(circle_at_65%_88%,rgba(241,63,208,0.24),transparent_52%)]"
         aria-hidden="true"
       />
 

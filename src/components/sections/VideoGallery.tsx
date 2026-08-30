@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
-import { Volume2, VolumeX } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { galleryVideos } from '@/data/videos';
 import 'swiper/css';
@@ -13,19 +12,18 @@ interface VideoGalleryProps {
 }
 
 /**
- * Video reel of footage shot at the venue.
+ * Silent video reel of footage shot at the venue.
  *
  * Playback is deliberately conservative: nothing downloads beyond metadata
  * until a clip scrolls into view, and clips pause the moment they leave.
- * With six files on the page that is the difference between a few hundred KB
- * and tens of MB on first paint.
+ * Across seven files that is the difference between a few hundred KB and
+ * tens of MB on first paint.
  *
- * Autoplay requires the video to be muted and inline — browsers block it
- * otherwise — so sound is opt-in via the per-clip toggle.
+ * The clips have no sound by design, so there is no audio control — muted
+ * is also what lets them autoplay at all under browser policy.
  */
 export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const [unmutedId, setUnmutedId] = useState<string | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -62,25 +60,6 @@ export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
     return () => observer.disconnect();
   }, [reducedMotion]);
 
-  /** Only one clip may carry sound at a time. */
-  const toggleSound = (id: string, index: number) => {
-    const video = videoRefs.current[index];
-    if (!video) return;
-
-    if (unmutedId === id) {
-      video.muted = true;
-      setUnmutedId(null);
-      return;
-    }
-
-    videoRefs.current.forEach((other) => {
-      if (other) other.muted = true;
-    });
-    video.muted = false;
-    void video.play().catch(() => undefined);
-    setUnmutedId(id);
-  };
-
   return (
     <Section className="bg-white">
       <h2 className="mb-10 font-heading text-display-md font-extrabold text-ink-900">{title}</h2>
@@ -102,7 +81,7 @@ export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
       >
         {galleryVideos.map((video, index) => (
           <SwiperSlide key={video.id}>
-            <div className="group relative aspect-[4/3] overflow-hidden rounded-3xl bg-ink-100">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-ink-100">
               <video
                 ref={(el) => {
                   videoRefs.current[index] = el;
@@ -113,26 +92,15 @@ export function VideoGallery({ title = 'Galerie' }: VideoGalleryProps) {
                 loop
                 playsInline
                 preload="metadata"
+                disablePictureInPicture
+                disableRemotePlayback
                 controls={reducedMotion}
+                // The video would otherwise swallow the drag gesture before
+                // Swiper ever sees it, leaving the carousel stuck.
                 className={`h-full w-full object-cover ${reducedMotion ? '' : 'pointer-events-none'}`}
               />
 
-              {!reducedMotion && (
-                <button
-                  type="button"
-                  onClick={() => toggleSound(video.id, index)}
-                  aria-label={unmutedId === video.id ? `Oprește sunetul: ${video.label}` : `Pornește sunetul: ${video.label}`}
-                  className="absolute bottom-3 right-3 rounded-full bg-black/55 p-2.5 text-white backdrop-blur transition hover:bg-black/75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
-                  {unmutedId === video.id ? (
-                    <Volume2 className="h-4 w-4" aria-hidden="true" />
-                  ) : (
-                    <VolumeX className="h-4 w-4" aria-hidden="true" />
-                  )}
-                </button>
-              )}
-
-              <p className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 pr-14 text-sm font-medium text-white">
+              <p className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-sm font-medium text-white">
                 {video.label}
               </p>
             </div>

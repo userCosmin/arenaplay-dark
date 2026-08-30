@@ -1,6 +1,7 @@
 import { BookOpen, Languages, Code2, Palette } from 'lucide-react';
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
+import { heroVideos } from '@/data/videos';
 import { FeatureGrid } from '@/components/sections/FeatureGrid';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
@@ -22,6 +23,7 @@ export default function AfterschoolPage() {
         title="ARENA PLAY AFTERSCHOOL"
         subtitle="După școală începe următorul nivel."
         accent="afterschool"
+        backgroundVideo={heroVideos.afterschool}
         breadcrumbs={[{ label: 'Afterschool', href: '/afterschool/' }]}
       >
         <div className="flex flex-wrap gap-4">

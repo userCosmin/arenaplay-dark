@@ -1,5 +1,6 @@
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
+import { heroVideos } from '@/data/videos';
 import { Section } from '@/components/ui/Section';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -23,6 +24,7 @@ export default function AfterschoolProgramPage() {
         title="Cum arată o zi la Afterschool"
         subtitle="Program clar, pe intervale orare, ca să înțelegi rapid cum este organizat timpul copilului tău."
         accent="afterschool"
+        backgroundVideo={heroVideos.afterschool}
         breadcrumbs={breadcrumbs}
       />
 

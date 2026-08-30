@@ -3,7 +3,7 @@ import { SEO } from '@/components/seo/SEO';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbSchema } from '@/utils/structuredData';
 import { PageHero } from '@/components/sections/PageHero';
-import { petreceriHeroVideo } from '@/data/videos';
+import { heroVideos } from '@/data/videos';
 import { Section } from '@/components/ui/Section';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -30,7 +30,7 @@ export default function PetreceriPachetePage() {
         title="Alege pachetul potrivit"
         subtitle="Două pachete, aceleași beneficii — diferă doar mărimea grupului."
         accent="petreceri"
-        backgroundVideo={petreceriHeroVideo}
+        backgroundVideo={heroVideos.petreceri}
         breadcrumbs={breadcrumbs}
       />
 
