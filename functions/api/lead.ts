@@ -35,6 +35,7 @@
  */
 
 interface Env {
+  DB: D1Database;
   RESEND_API_KEY: string;
   LEAD_NOTIFICATION_EMAIL?: string;
   RESEND_FROM_EMAIL?: string;
@@ -102,7 +103,10 @@ function escapeHtml(value: string): string {
 /** Payload entries worth showing a human, in submission order. */
 function visibleEntries(payload: Record<string, unknown>): [string, string][] {
   return Object.entries(payload)
-    .filter(([key, value]) => key !== 'consent' && key !== 'website' && value !== undefined && value !== '')
+    .filter(
+      ([key, value]) =>
+        key !== 'consent' && key !== 'website' && value !== undefined && value !== ''
+    )
     .map(([key, value]) => [fieldLabels[key] ?? key, String(value)]);
 }
 
@@ -135,19 +139,26 @@ function buildTelegramMessage(type: LeadType, payload: Record<string, unknown>):
   return `🔔 <b>${escapeHtml(typeLabels[type])}</b>\n\n${lines}`;
 }
 
-async function notifyTelegram(env: Env, type: LeadType, payload: Record<string, unknown>): Promise<void> {
+async function notifyTelegram(
+  env: Env,
+  type: LeadType,
+  payload: Record<string, unknown>
+): Promise<void> {
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
 
-  const response = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: env.TELEGRAM_CHAT_ID,
-      text: buildTelegramMessage(type, payload),
-      parse_mode: 'HTML',
-      disable_web_page_preview: true,
-    }),
-  });
+  const response = await fetch(
+    `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: env.TELEGRAM_CHAT_ID,
+        text: buildTelegramMessage(type, payload),
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error(`Telegram ${response.status}: ${await response.text()}`);
@@ -165,7 +176,11 @@ function extractBookingDate(payload: Record<string, unknown>): string | null {
   return /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : null;
 }
 
-async function addCalendarEvent(env: Env, type: LeadType, payload: Record<string, unknown>): Promise<void> {
+async function addCalendarEvent(
+  env: Env,
+  type: LeadType,
+  payload: Record<string, unknown>
+): Promise<void> {
   if (!env.CALENDAR_WEBHOOK_URL) return;
 
   const date = extractBookingDate(payload);
@@ -193,6 +208,30 @@ async function addCalendarEvent(env: Env, type: LeadType, payload: Record<string
   if (!response.ok) {
     throw new Error(`Calendar ${response.status}: ${await response.text()}`);
   }
+}
+
+/** Persists the raw submission so it shows up in the /admin dashboard, independent of email delivery. */
+async function saveLead(env: Env, type: LeadType, payload: Record<string, unknown>): Promise<void> {
+  const get = (key: string): string | null => {
+    const value = payload[key];
+    return typeof value === 'string' && value ? value : null;
+  };
+
+  await env.DB.prepare(
+    `INSERT INTO leads (type, name, phone, email, preferred_date, preferred_time, message, payload)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  )
+    .bind(
+      type,
+      get('name') ?? get('parentName') ?? get('nameOrOrganization'),
+      get('phone'),
+      get('email'),
+      get('preferredDate') ?? get('eventDate'),
+      get('preferredTime'),
+      get('message') ?? get('subject'),
+      JSON.stringify(payload)
+    )
+    .run();
 }
 
 function jsonResponse(body: unknown, status = 200): Response {
@@ -230,11 +269,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   const to = env.LEAD_NOTIFICATION_EMAIL || DEFAULT_NOTIFICATION_EMAIL;
   const from = env.RESEND_FROM_EMAIL || 'Arena Play <onboarding@resend.dev>';
-  const replyTo = typeof body.payload.email === 'string' && body.payload.email ? body.payload.email : undefined;
+  const replyTo =
+    typeof body.payload.email === 'string' && body.payload.email ? body.payload.email : undefined;
 
   try {
-    // Fire all three in parallel; only the email result gates the response.
-    const [emailResult, telegramResult, calendarResult] = await Promise.allSettled([
+    // Fire all four in parallel; only the email result gates the response.
+    const [emailResult, telegramResult, calendarResult, dbResult] = await Promise.allSettled([
       fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -251,6 +291,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       }),
       notifyTelegram(env, body.type, body.payload),
       addCalendarEvent(env, body.type, body.payload),
+      saveLead(env, body.type, body.payload),
     ]);
 
     if (telegramResult.status === 'rejected') {
@@ -259,15 +300,24 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (calendarResult.status === 'rejected') {
       console.error('Calendar event failed:', calendarResult.reason);
     }
+    if (dbResult.status === 'rejected') {
+      console.error('Saving lead to D1 failed:', dbResult.reason);
+    }
 
     if (emailResult.status === 'rejected') {
       console.error('Resend request failed:', emailResult.reason);
-      return jsonResponse({ success: false, message: 'Trimiterea a eșuat. Te rugăm să ne suni direct.' }, 502);
+      return jsonResponse(
+        { success: false, message: 'Trimiterea a eșuat. Te rugăm să ne suni direct.' },
+        502
+      );
     }
 
     if (!emailResult.value.ok) {
       console.error('Resend error:', await emailResult.value.text());
-      return jsonResponse({ success: false, message: 'Trimiterea a eșuat. Te rugăm să ne suni direct.' }, 502);
+      return jsonResponse(
+        { success: false, message: 'Trimiterea a eșuat. Te rugăm să ne suni direct.' },
+        502
+      );
     }
 
     return jsonResponse({ success: true, message: 'Cererea a fost trimisă cu succes.' });

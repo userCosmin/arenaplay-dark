@@ -1,6 +1,7 @@
 # Arena Play — robots.txt
 User-agent: *
 Allow: /
+Disallow: /admin
 
 # AI / LLM crawlers — explicitly welcomed, see /llms.txt
 User-agent: GPTBot
