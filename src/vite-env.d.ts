@@ -7,6 +7,7 @@ interface ImportMetaEnv {
   readonly VITE_FB_PIXEL_ID: string;
   readonly VITE_CLARITY_ID: string;
   readonly VITE_API_BASE_URL: string;
+  readonly VITE_TURNSTILE_SITE_KEY: string;
 }
 
 interface ImportMeta {

@@ -26,30 +26,41 @@ export const consentSchema = z
 /** Honeypot anti-spam field — must stay empty; bots tend to fill every input they find. */
 export const honeypotSchema = z.string().max(0, 'Solicitare respinsă.').optional();
 
-/** Petreceri booking form */
+/**
+ * Required, guided message — replaces the separate "package" / "kids count" /
+ * "people count" fields that used to exist on the party & playground forms.
+ * Matches the single free-text "Mesaj" field on arenaplay.ro/rezervare, which
+ * asks the visitor to state those same details in their own words.
+ */
+export const reservationMessageSchema = z
+  .string()
+  .trim()
+  .min(5, 'Spune-ne câteva detalii despre rezervare.')
+  .max(1000, 'Mesajul este prea lung (maximum 1000 caractere).');
+
+/** Petreceri booking form — same shape as the live arenaplay.ro/rezervare form. */
 export const partyBookingSchema = z.object({
   name: nameSchema,
   phone: phoneSchema,
   email: optionalEmailSchema,
   preferredDate: z.string().min(1, 'Alege o dată dorită.'),
   preferredTime: z.string().min(1, 'Alege un interval orar.'),
-  kidsCount: z.string().min(1, 'Introdu numărul aproximativ de copii.'),
-  packageId: z.string().min(1, 'Alege un pachet.'),
-  message: messageSchema,
+  message: reservationMessageSchema,
+  turnstileToken: z.string().optional(),
   website: honeypotSchema,
   consent: consentSchema,
 });
 export type PartyBookingFormData = z.infer<typeof partyBookingSchema>;
 
-/** Playground reservation form */
+/** Playground reservation form — same shape as the live arenaplay.ro/rezervare form. */
 export const playgroundBookingSchema = z.object({
   name: nameSchema,
   phone: phoneSchema,
   email: optionalEmailSchema,
   preferredDate: z.string().min(1, 'Alege o dată dorită.'),
   preferredTime: z.string().min(1, 'Alege un interval orar.'),
-  peopleCount: z.string().min(1, 'Introdu numărul de persoane.'),
-  message: messageSchema,
+  message: reservationMessageSchema,
+  turnstileToken: z.string().optional(),
   website: honeypotSchema,
   consent: consentSchema,
 });

@@ -324,7 +324,8 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                             <dl className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
                               {Object.entries(extra)
                                 .filter(
-                                  ([key, value]) => key !== 'consent' && key !== 'website' && value
+                                  ([key, value]) =>
+                                    key !== 'consent' && key !== 'website' && key !== 'turnstileToken' && value
                                 )
                                 .map(([key, value]) => (
                                   <div key={key}>

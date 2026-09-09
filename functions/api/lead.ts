@@ -43,6 +43,8 @@ interface Env {
   TELEGRAM_CHAT_ID?: string;
   CALENDAR_WEBHOOK_URL?: string;
   CALENDAR_WEBHOOK_SECRET?: string;
+  /** Server-side secret for the Cloudflare Turnstile widget on the Petreceri/Loc de joacă forms. */
+  TURNSTILE_SECRET_KEY?: string;
 }
 
 type LeadType = 'petreceri' | 'playground' | 'afterschool' | 'arena-mobila' | 'contact';
@@ -105,7 +107,11 @@ function visibleEntries(payload: Record<string, unknown>): [string, string][] {
   return Object.entries(payload)
     .filter(
       ([key, value]) =>
-        key !== 'consent' && key !== 'website' && value !== undefined && value !== ''
+        key !== 'consent' &&
+        key !== 'website' &&
+        key !== 'turnstileToken' &&
+        value !== undefined &&
+        value !== ''
     )
     .map(([key, value]) => [fieldLabels[key] ?? key, String(value)]);
 }
@@ -210,6 +216,31 @@ async function addCalendarEvent(
   }
 }
 
+/**
+ * Verifies a Cloudflare Turnstile token server-side. Only enforced when
+ * TURNSTILE_SECRET_KEY is configured — until the widget is set up (see
+ * VITE_TURNSTILE_SITE_KEY in .env.example), submissions pass through
+ * unchecked, same as the other optional channels below.
+ */
+async function verifyTurnstile(env: Env, token: string | undefined, ip: string | null): Promise<boolean> {
+  if (!env.TURNSTILE_SECRET_KEY) return true;
+  if (!token) return false;
+
+  const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      secret: env.TURNSTILE_SECRET_KEY,
+      response: token,
+      ...(ip ? { remoteip: ip } : {}),
+    }),
+  });
+
+  if (!response.ok) return false;
+  const result = (await response.json()) as { success: boolean };
+  return result.success === true;
+}
+
 /** Persists the raw submission so it shows up in the /admin dashboard, independent of email delivery. */
 async function saveLead(env: Env, type: LeadType, payload: Record<string, unknown>): Promise<void> {
   const get = (key: string): string | null => {
@@ -258,6 +289,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   if (!body.type || !typeLabels[body.type] || !body.payload || typeof body.payload !== 'object') {
     return jsonResponse({ success: false, message: 'Date de formular invalide.' }, 400);
+  }
+
+  const turnstileToken = body.payload.turnstileToken;
+  const turnstileOk = await verifyTurnstile(
+    env,
+    typeof turnstileToken === 'string' ? turnstileToken : undefined,
+    request.headers.get('CF-Connecting-IP')
+  );
+  if (!turnstileOk) {
+    return jsonResponse({ success: false, message: 'Verificarea anti-spam a eșuat. Reîncearcă.' }, 403);
   }
 
   if (!env.RESEND_API_KEY) {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Send } from 'lucide-react';
 import { FormField } from '@/components/ui/FormField';
@@ -9,15 +9,22 @@ import { Checkbox } from '@/components/ui/Checkbox';
 import { Button } from '@/components/ui/Button';
 import { FormStatus } from '@/components/ui/FormStatus';
 import { Honeypot } from '@/components/ui/Honeypot';
+import { TimeSlotPicker } from '@/components/ui/TimeSlotPicker';
+import { TurnstileWidget } from '@/components/ui/Turnstile';
 import { playgroundBookingSchema, type PlaygroundBookingFormData } from '@/utils/validation';
 import { submitPlaygroundBooking } from '@/services/bookingService';
 import { trackEvent } from '@/utils/analytics';
+import { partyTimeSlots } from '@/data/packages';
+
+const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 
 export function PlaygroundBookingForm() {
   const [result, setResult] = useState<{ status: 'success' | 'error'; message: string } | null>(null);
   const {
     register,
+    control,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<PlaygroundBookingFormData>({ resolver: zodResolver(playgroundBookingSchema) });
@@ -36,34 +43,44 @@ export function PlaygroundBookingForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
       <Honeypot registration={register('website')} />
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <FormField label="Nume complet" htmlFor="pg-name" required error={errors.name?.message}>
-          <Input id="pg-name" placeholder="Numele tău" hasError={!!errors.name} {...register('name')} />
-        </FormField>
-        <FormField label="Telefon" htmlFor="pg-phone" required error={errors.phone?.message}>
-          <Input id="pg-phone" type="tel" placeholder="07XX XXX XXX" hasError={!!errors.phone} {...register('phone')} />
-        </FormField>
-      </div>
+
+      <FormField label="Nume" htmlFor="pg-name" required error={errors.name?.message}>
+        <Input id="pg-name" placeholder="Introduceți numele" hasError={!!errors.name} {...register('name')} />
+      </FormField>
+
+      <FormField label="Data Rezervării" htmlFor="pg-date" required error={errors.preferredDate?.message}>
+        <Input id="pg-date" type="date" hasError={!!errors.preferredDate} {...register('preferredDate')} />
+      </FormField>
+
+      <Controller
+        control={control}
+        name="preferredTime"
+        render={({ field }) => (
+          <FormField label="Ora Dorită" htmlFor="pg-time" required error={errors.preferredTime?.message}>
+            <TimeSlotPicker
+              slots={partyTimeSlots}
+              value={field.value ?? ''}
+              onChange={(label) => setValue('preferredTime', label, { shouldValidate: true })}
+              hasError={!!errors.preferredTime}
+            />
+          </FormField>
+        )}
+      />
+
+      <FormField label="Număr de telefon" htmlFor="pg-phone" required error={errors.phone?.message}>
+        <Input id="pg-phone" type="tel" placeholder="Introduceți numărul de telefon" hasError={!!errors.phone} {...register('phone')} />
+      </FormField>
 
       <FormField label="E-mail (opțional)" htmlFor="pg-email" error={errors.email?.message}>
         <Input id="pg-email" type="email" placeholder="nume@exemplu.ro" hasError={!!errors.email} {...register('email')} />
       </FormField>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <FormField label="Dată dorită" htmlFor="pg-date" required error={errors.preferredDate?.message}>
-          <Input id="pg-date" type="date" hasError={!!errors.preferredDate} {...register('preferredDate')} />
-        </FormField>
-        <FormField label="Interval orar" htmlFor="pg-time" required error={errors.preferredTime?.message}>
-          <Input id="pg-time" type="time" hasError={!!errors.preferredTime} {...register('preferredTime')} />
-        </FormField>
-      </div>
-
-      <FormField label="Număr de persoane" htmlFor="pg-people" required error={errors.peopleCount?.message}>
-        <Input id="pg-people" placeholder="ex: 4" hasError={!!errors.peopleCount} {...register('peopleCount')} />
-      </FormField>
-
-      <FormField label="Mesaj (opțional)" htmlFor="pg-message" error={errors.message?.message}>
-        <Textarea id="pg-message" placeholder="Activități preferate, ocazie specială..." {...register('message')} />
+      <FormField label="Mesaj" htmlFor="pg-message" required error={errors.message?.message}>
+        <Textarea
+          id="pg-message"
+          placeholder="Câte persoane/copii vor participa și eventuale cerințe speciale."
+          {...register('message')}
+        />
       </FormField>
 
       <Checkbox
@@ -74,11 +91,22 @@ export function PlaygroundBookingForm() {
       />
       {errors.consent && <p className="-mt-3 text-sm text-red-600">{errors.consent.message}</p>}
 
+      {turnstileSiteKey && (
+        <TurnstileWidget
+          siteKey={turnstileSiteKey}
+          onVerify={(token) => setValue('turnstileToken', token)}
+          onExpire={() => setValue('turnstileToken', undefined)}
+        />
+      )}
+
       {result && <FormStatus status={result.status} message={result.message} />}
 
       <Button type="submit" accent="playground" size="lg" disabled={isSubmitting} icon={<Send className="h-4 w-4" />}>
-        {isSubmitting ? 'Se trimite...' : 'Rezervă Loc de joacă'}
+        {isSubmitting ? 'Se trimite...' : 'Rezervă acum'}
       </Button>
+      <p className="text-xs text-ink-400">
+        După completare veți fi contactat pe numărul de telefon introdus, pentru confirmare.
+      </p>
     </form>
   );
 }
