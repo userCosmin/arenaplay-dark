@@ -20,7 +20,7 @@ export const services: ServiceSummary[] = [
     shortLabel: 'Petreceri VR',
     tagline: 'Tu aduci invitații. Noi pregătim experiența.',
     description:
-      'Spațiu privat, activități, animație și pachete complete pentru ziua perfectă a copilului tău.',
+      'Spațiu privat, activități, animație și un pachet complet pentru ziua perfectă a copilului tău.',
     href: '/petreceri-vr/',
     ctaLabel: 'Rezervă petrecerea',
     accent: 'petreceri',

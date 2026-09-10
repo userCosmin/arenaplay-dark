@@ -13,7 +13,7 @@ export default function PetreceriPage() {
     <>
       <SEO
         title="Petreceri pentru copii"
-        description="Tu aduci invitații, noi pregătim experiența. Petreceri tematice pentru copii, cu spațiu privat, animație și pachete complete la Arena Play."
+        description="Tu aduci invitații, noi pregătim experiența. Petreceri tematice pentru copii, cu spațiu privat, animație și pachet complet la Arena Play."
         path="/petreceri-vr/"
       />
       <PageHero

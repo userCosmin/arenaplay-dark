@@ -160,7 +160,7 @@ const routes = [
   {
     path: '/petreceri-vr/',
     title: 'Petreceri pentru copii | Arena Play',
-    description: 'Tu aduci invitații, noi pregătim experiența. Petreceri tematice pentru copii, cu spațiu privat, animație și pachete complete la Arena Play.',
+    description: 'Tu aduci invitații, noi pregătim experiența. Petreceri tematice pentru copii, cu spațiu privat, animație și pachet complet la Arena Play.',
     breadcrumb: [{ label: 'Petreceri VR', href: '/petreceri-vr/' }],
     jsonLd: [breadcrumbSchema([{ label: 'Petreceri VR', href: '/petreceri-vr/' }]), faqSchema(generalFaq)],
     body: `
