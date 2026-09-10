@@ -46,7 +46,8 @@ export const faqItems: FAQItem[] = [
   {
     id: 'faq-7',
     question: 'Pot vizita locația înainte de a rezerva?',
-    answer: 'Da, te așteptăm oricând în programul de funcționare sau poți programa o vizită prin telefon sau WhatsApp.',
+    answer:
+      'Da, te așteptăm oricând în programul de funcționare sau poți programa o vizită prin telefon sau WhatsApp.',
     category: 'general',
   },
 ];

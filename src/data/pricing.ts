@@ -33,7 +33,8 @@ export const playgroundOffers: Offer[] = [
   {
     id: '2-plus-1',
     title: '2 bilete cumpărate, al 3-lea gratuit',
-    description: 'La achiziționarea a minimum 2 bilete de acces (sesiune de 20 de minute), al treilea bilet este gratuit.',
+    description:
+      'La achiziționarea a minimum 2 bilete de acces (sesiune de 20 de minute), al treilea bilet este gratuit.',
     conditions: 'Valabil sâmbătă și duminică, 13:30–21:30, la achiziția pe loc.',
   },
 ];

@@ -28,11 +28,10 @@ export const curriculumPillars: CurriculumPillar[] = [
 ];
 
 export const dailySchedule: DaySchedule[] = [
-  { time: '12:00 – 12:30', activity: 'Sosire, gustare și relaxare după școală' },
-  { time: '12:30 – 13:30', activity: 'Teme și organizare, cu sprijin individual' },
-  { time: '13:30 – 14:15', activity: 'Curs săptămânal: Engleză sau Programare (alternativ)' },
-  { time: '14:15 – 15:30', activity: 'Activități recreative și joc liber' },
-  { time: '15:30 – 18:00', activity: 'Timp liber supravegheat, program flexibil de preluare' },
+  { time: '12:00 – 12:30', activity: 'Sosire, masă și relaxare' },
+  { time: '12:30 – 16:00', activity: 'Teme sprijin (corectat peste versiunea inițială)' },
+  { time: '16:00 – 17:00', activity: 'Activități recreative / Jocuri de lectură / Codare, Robotică, IT' },
+  { time: '17:00 – 18:00', activity: 'Activități opționale: Engleză, Șah' },
 ];
 
 export const afterschoolOptionals = [

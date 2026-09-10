@@ -200,21 +200,18 @@ const routes = [
   {
     path: '/loc-de-joaca/',
     title: 'Loc de joacă Arena Play | Arena Play',
-    description: 'XR, VR, simulatoare auto și de zbor, PlayStation și multe altele. Descoperă Locul de joacă Arena Play — program, tarife și rezervare.',
+    description: 'Zona XR, Zona VR, Sim Auto, Sim Zbor și Zonă Gaming. Descoperă Locul de joacă Arena Play — program, tarife și rezervare.',
     breadcrumb: [{ label: 'Loc de joacă', href: '/loc-de-joaca/' }],
     jsonLd: [breadcrumbSchema([{ label: 'Loc de joacă', href: '/loc-de-joaca/' }])],
     body: `
       <h1>LOC DE JOACĂ ARENA PLAY</h1>
       <p>Intră în joc.</p>
-      ${section('8 activități, un singur loc', linkList([
-        { href: '/loc-de-joaca/activitati/#vr-dinamic-journey', label: 'VR Dinamic — Journey', desc: 'Excursii în sistemul solar, junglă și savană; copiii învață interactiv.' },
-        { href: '/loc-de-joaca/activitati/#vr-dinamic-lasertag', label: 'VR Dinamic — Lasertag', desc: 'Joc în echipă: copiii fac mișcare, se ajută și colaborează.' },
-        { href: '/loc-de-joaca/activitati/#vr-static-job-simulator', label: 'VR Static — Job Simulator', desc: 'Jocuri recreativ-educative în care copiii experimentează meserii.' },
-        { href: '/loc-de-joaca/activitati/#vr-static-beat-saber', label: 'VR Static — Beat Saber', desc: 'Coordonare mână-picior prin mișcare și dans pe ritm.' },
-        { href: '/loc-de-joaca/activitati/#simulator-auto', label: 'Simulator Profesional Auto', desc: 'Dezvoltă abilitățile necesare pentru obținerea permisului auto.' },
-        { href: '/loc-de-joaca/activitati/#simulator-zbor', label: 'Simulator Profesional de Zbor', desc: 'Testează aptitudinile pentru o carieră de pilot.' },
-        { href: '/loc-de-joaca/activitati/#playstation', label: 'Zonă PlayStation', desc: 'Console de ultimă generație și o selecție variată de jocuri.' },
-        { href: '/loc-de-joaca/activitati/#extra', label: 'Activități Extra', desc: 'Jocuri de societate, șah, zonă de creativitate.' },
+      ${section('5 zone, un singur loc', linkList([
+        { href: '/loc-de-joaca/activitati/#zona-xr', label: 'Zona XR', desc: 'Excursii virtuale și jocuri în echipă care îi țin în mișcare.' },
+        { href: '/loc-de-joaca/activitati/#zona-vr', label: 'Zona VR', desc: 'Jocuri recreativ-educative, așezat, potrivite pentru toți copiii.' },
+        { href: '/loc-de-joaca/activitati/#simulator-auto', label: 'Sim Auto', desc: 'Dezvoltă abilitățile necesare pentru obținerea permisului auto.' },
+        { href: '/loc-de-joaca/activitati/#simulator-zbor', label: 'Sim Zbor', desc: 'Testează aptitudinile pentru o carieră de pilot.' },
+        { href: '/loc-de-joaca/activitati/#gaming', label: 'Zonă Gaming', desc: 'Console de ultimă generație și o selecție variată de jocuri.' },
       ]))}
       ${section('Program', `<p>Sâmbătă – Duminică: 13:30 – 21:30 (fără rezervare) · Luni – Vineri: doar cu rezervare</p>`)}
       ${section('Program & Tarife', linkList([{ href: '/loc-de-joaca/tarife-program/', label: 'Vezi programul complet și tarifele' }]))}
@@ -222,22 +219,19 @@ const routes = [
   },
   {
     path: '/loc-de-joaca/activitati/',
-    title: 'Activități Loc de joacă — VR Dinamic, VR Static, Simulatoare | Arena Play',
-    description: 'Toate activitățile din Locul de joacă Arena Play: VR Dinamic (Journey, Lasertag), VR Static (Job Simulator, Beat Saber), simulator auto și de zbor, PlayStation.',
+    title: 'Activități Loc de joacă — XR, VR, Simulatoare, Gaming | Arena Play',
+    description: 'Toate zonele din Locul de joacă Arena Play: Zona XR, Zona VR, Sim Auto, Sim Zbor și Zonă Gaming.',
     breadcrumb: [{ label: 'Loc de joacă', href: '/loc-de-joaca/' }, { label: 'Activități', href: '/loc-de-joaca/activitati/' }],
     jsonLd: [breadcrumbSchema([{ label: 'Loc de joacă', href: '/loc-de-joaca/' }, { label: 'Activități', href: '/loc-de-joaca/activitati/' }])],
     body: `
       <h1>Activitățile Locului de joacă</h1>
-      <p>Fiecare activitate este aleasă atât pentru distracție, cât și pentru ce exersează copilul. În arenă au acces maximum 6 persoane simultan.</p>
-      ${section('Detalii activități', `
-        <article id="vr-dinamic-journey"><h3>VR Dinamic — Journey</h3><p>Excursii în sistemul solar, în junglă și în savană. Copiii explorează și învață interactiv, ghidați prin fiecare mediu. Vârstă: 6+. Până la 6 jucători. Durată: 20 min/sesiune.</p></article>
-        <article id="vr-dinamic-lasertag"><h3>VR Dinamic — Lasertag</h3><p>Joc în echipă care îi ține în mișcare: copiii se coordonează, se ajută între ei și colaborează pentru a câștiga. Vârstă: 7+. Până la 6 jucători. Durată: 20 min/sesiune.</p></article>
-        <article id="vr-static-job-simulator"><h3>VR Static — Job Simulator</h3><p>Jocuri recreativ-educative în care copiii experimentează meserii și rezolvă sarcini practice, pas cu pas. Vârstă: 6+. Jucători: 1-2. Durată: 15 min/sesiune.</p></article>
-        <article id="vr-static-beat-saber"><h3>VR Static — Beat Saber</h3><p>Prin mișcare și dans pe ritm, copiii își dezvoltă coordonarea mână-picior și simțul ritmului. Vârstă: 6+. Durată: 15 min/sesiune.</p></article>
-        <article id="simulator-auto"><h3>Simulator Profesional Auto</h3><p>Dezvoltă abilitățile necesare pentru obținerea permisului auto, într-un mediu sigur și controlat. Vârstă: 7+. Durată: 10 min/sesiune.</p></article>
-        <article id="simulator-zbor"><h3>Simulator Profesional de Zbor</h3><p>Cabină de pilotaj realistă prin care se poate testa dacă există aptitudini pentru o carieră de pilot. Vârstă: 8+. Durată: 10-15 min/sesiune.</p></article>
-        <article id="playstation"><h3>Zonă PlayStation</h3><p>Console de ultimă generație, canapele confortabile și o selecție variată de jocuri. Acces liber, 1-4 jucători.</p></article>
-        <article id="extra"><h3>Activități Extra</h3><p>Jocuri de societate, șah, zonă de creativitate și alte activități rotative. Acces liber.</p></article>
+      <p>Fiecare zonă este aleasă atât pentru distracție, cât și pentru ce exersează copilul. În arenă au acces maximum 6 persoane simultan.</p>
+      ${section('Detalii zone', `
+        <article id="zona-xr"><h3>Zona XR</h3><p>Excursii virtuale și jocuri în echipă care îi țin în mișcare: copiii explorează, se coordonează și colaborează pentru a câștiga. Vârstă: 6+. Jucători: 1-6. Durată: 20 min/sesiune.</p></article>
+        <article id="zona-vr"><h3>Zona VR</h3><p>Jocuri recreativ-educative, așezat: de la simulare de meserii la mișcare pe ritm, potrivite pentru toți copiii. Vârstă: 6+. Jucători: 1-2. Durată: 20 min/sesiune.</p></article>
+        <article id="simulator-auto"><h3>Sim Auto</h3><p>Dezvoltă abilitățile necesare pentru obținerea permisului auto, într-un mediu sigur și controlat. Vârstă: 7+. Jucători: 1-2. Durată: 20 min/sesiune.</p></article>
+        <article id="simulator-zbor"><h3>Sim Zbor</h3><p>Cabină de pilotaj realistă prin care se poate testa dacă există aptitudini pentru o carieră de pilot. Vârstă: 8+. Jucător: 1. Durată: 20 min/sesiune.</p></article>
+        <article id="gaming"><h3>Zonă Gaming</h3><p>Console de ultimă generație și o selecție variată de jocuri. Jucători: 1-6. Durată: 20 minute.</p></article>
       `)}
     `,
   },
@@ -327,11 +321,10 @@ const routes = [
       <h1>Cum arată o zi la Afterschool</h1>
       ${section('Program zilnic', `
         <ul>
-          <li>12:00 – 12:30: Sosire, gustare și relaxare după școală</li>
-          <li>12:30 – 13:30: Teme și organizare, cu sprijin individual</li>
-          <li>13:30 – 14:15: Curs săptămânal: Engleză sau Programare (alternativ)</li>
-          <li>14:15 – 15:30: Activități recreative și joc liber</li>
-          <li>15:30 – 18:00: Timp liber supravegheat, program flexibil de preluare</li>
+          <li>12:00 – 12:30: Sosire, masă și relaxare</li>
+          <li>12:30 – 16:00: Teme sprijin (corectat peste versiunea inițială)</li>
+          <li>16:00 – 17:00: Activități recreative / Jocuri de lectură / Codare, Robotică, IT</li>
+          <li>17:00 – 18:00: Activități opționale: Engleză, Șah</li>
         </ul>
       `)}
       ${section('Opționale', `<p>Șah (curs opțional săptămânal), Transport/Preluare (opțional, din anumite școli partenere), Masă de prânz (opțiune separată, contra cost).</p>`)}

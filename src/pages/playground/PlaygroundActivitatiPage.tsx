@@ -16,8 +16,8 @@ export default function PlaygroundActivitatiPage() {
   return (
     <>
       <SEO
-        title="Activități Loc de joacă — XR, VR, Simulatoare, PlayStation"
-        description="Descoperă toate activitățile din Locul de joacă Arena Play: zonă XR, VR, simulator auto, simulator de zbor, PlayStation și activități extra."
+        title="Activități Loc de joacă — XR, VR, Simulatoare, Gaming"
+        description="Descoperă toate zonele din Locul de joacă Arena Play: Zona XR, Zona VR, Sim Auto, Sim Zbor și Zonă Gaming."
         path="/loc-de-joaca/activitati/"
       />
       <PageHero

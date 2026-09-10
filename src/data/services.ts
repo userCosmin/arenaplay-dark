@@ -7,7 +7,7 @@ export const services: ServiceSummary[] = [
     shortLabel: 'Loc de joacă',
     tagline: 'Intră în joc.',
     description:
-      'XR, VR, simulatoare auto și de zbor, PlayStation și multe alte activități pentru toate vârstele.',
+      'Zona XR, Zona VR, Sim Auto, Sim Zbor și Zonă Gaming — activități pentru toate vârstele.',
     href: '/loc-de-joaca/',
     ctaLabel: 'Rezervă Loc de joacă',
     accent: 'playground',

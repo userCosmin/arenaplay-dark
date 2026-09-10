@@ -14,7 +14,7 @@ export default function PlaygroundPage() {
     <>
       <SEO
         title="Loc de joacă Arena Play"
-        description="XR, VR, simulatoare auto și de zbor, PlayStation și multe altele. Descoperă Locul de joacă Arena Play — program, tarife și rezervare."
+        description="Zona XR, Zona VR, Sim Auto, Sim Zbor și Zonă Gaming. Descoperă Locul de joacă Arena Play — program, tarife și rezervare."
         path="/loc-de-joaca/"
       />
       <PageHero

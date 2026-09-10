@@ -49,7 +49,9 @@ export default function PetreceriPachetePage() {
               )}
               <h2 className="font-heading text-2xl font-bold text-ink-900">{pkg.name}</h2>
               <p className="mt-2 flex items-baseline gap-1.5">
-                <span className="font-heading text-4xl font-extrabold text-ink-900">{pkg.price}</span>
+                <span className="font-heading text-4xl font-extrabold text-ink-900">
+                  {pkg.price}
+                </span>
                 <span className="text-sm text-ink-500">{pkg.priceUnit}</span>
               </p>
               <p className="mt-1 text-sm text-ink-500">
@@ -76,9 +78,12 @@ export default function PetreceriPachetePage() {
 
       <Section className="bg-ink-50" id="formular-rezervare">
         <div className="mx-auto max-w-2xl">
-          <h2 className="mb-2 font-heading text-display-md font-extrabold text-ink-900">Formular de rezervare</h2>
+          <h2 className="mb-2 font-heading text-display-md font-extrabold text-ink-900">
+            Formular de rezervare
+          </h2>
           <p className="mb-8 text-ink-500">
-            Completează formularul de mai jos — rezervarea se confirmă ulterior de către echipa noastră, telefonic sau prin WhatsApp.
+            Completează formularul de mai jos — rezervarea se confirmă ulterior de către echipa
+            noastră, telefonic sau prin WhatsApp.
           </p>
           <Card>
             <PartyBookingForm />
