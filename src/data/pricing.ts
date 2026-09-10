@@ -18,21 +18,14 @@ export const playgroundPricingWeekday: PriceItem[] = [
     label: 'Petrecere — Pachetul 1',
     price: 100,
     unit: 'lei / copil',
-    note: '4 – 9 copii · 3 ore · acces exclusiv la toate echipamentele',
-  },
-  {
-    id: 'petrecere-pachet-2',
-    label: 'Petrecere — Pachetul 2',
-    price: 80,
-    unit: 'lei / copil',
-    note: '10 – 20 copii · 3 ore · acces exclusiv la toate echipamentele',
+    note: 'Minim 6 copii · 3 ore · acces exclusiv la toate echipamentele',
   },
   {
     id: 'loc-de-joaca-privat',
     label: 'Loc de joacă — acces privat',
     price: 100,
     unit: 'lei / copil',
-    note: 'Minim 4 copii · 2 ore · acces exclusiv la toate echipamentele',
+    note: 'Minim 6 copii · 3 ore · acces exclusiv la toate echipamentele',
   },
 ];
 

@@ -40,7 +40,7 @@ export const faqItems: FAQItem[] = [
     id: 'faq-6',
     question: 'Ce este inclus în pachetul de petrecere?',
     answer:
-      'Sunt două pachete, ambele de 3 ore: Pachetul 1 — 100 lei/copil pentru 4–9 copii, și Pachetul 2 — 80 lei/copil pentru 10–20 copii. Ambele includ acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată și 10% reducere la Pizza și Fast Food Antik.',
+      'Pachetul de petrecere este 100 lei/copil, 3 ore, minim 6 copii. Include acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată și 10% reducere la Pizza și Fast Food Antik.',
     category: 'petreceri',
   },
   {

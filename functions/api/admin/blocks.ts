@@ -32,7 +32,10 @@ interface CreateBlockBody {
 const SLOT_IDS: Set<string> = new Set(RESERVATION_SLOTS.map((s) => s.id));
 
 function jsonResponse(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
@@ -40,7 +43,9 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     return jsonResponse({ success: false, message: 'Neautorizat.' }, 401);
   }
 
-  const result = await env.DB.prepare(`SELECT * FROM blocked_slots ORDER BY date DESC, id DESC`).all<BlockRow>();
+  const result = await env.DB.prepare(
+    `SELECT * FROM blocked_slots ORDER BY date DESC, id DESC`
+  ).all<BlockRow>();
   return jsonResponse({ success: true, blocks: result.results });
 };
 
@@ -78,12 +83,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   for (const date of dates) {
     for (const time of timeValues) {
       writes.push(
-        env.DB.prepare(`INSERT INTO blocked_slots (date, time, recurring, reason) VALUES (?, ?, ?, ?)`).bind(
-          date,
-          time,
-          recurring,
-          reason
-        )
+        env.DB.prepare(
+          `INSERT INTO blocked_slots (date, time, recurring, reason) VALUES (?, ?, ?, ?)`
+        ).bind(date, time, recurring, reason)
       );
     }
   }

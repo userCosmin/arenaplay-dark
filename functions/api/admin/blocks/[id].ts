@@ -9,7 +9,10 @@ interface Env extends AdminEnv {
 }
 
 function jsonResponse(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
 export const onRequestDelete: PagesFunction<Env> = async ({ request, env, params }) => {

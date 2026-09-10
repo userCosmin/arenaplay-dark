@@ -15,17 +15,7 @@ export const partyPackages: PartyPackage[] = [
     price: 100,
     priceUnit: 'lei / copil',
     duration: '3 ore',
-    kids: '4 – 9 copii',
-    includes: commonIncludes,
-  },
-  {
-    id: 'pachet-2',
-    name: 'Pachetul 2',
-    price: 80,
-    priceUnit: 'lei / copil',
-    duration: '3 ore',
-    kids: '10 – 20 copii',
-    featured: true,
+    kids: 'Minim 6 copii',
     includes: commonIncludes,
   },
 ];

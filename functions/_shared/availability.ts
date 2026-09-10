@@ -34,7 +34,10 @@ export interface SlotAvailability {
 
 const RESERVATION_TYPES = ['petreceri', 'playground'] as const;
 
-export async function getAvailability(env: AvailabilityEnv, date: string): Promise<SlotAvailability[]> {
+export async function getAvailability(
+  env: AvailabilityEnv,
+  date: string
+): Promise<SlotAvailability[]> {
   const [bookedRows, blockRows] = await Promise.all([
     env.DB.prepare(
       `SELECT DISTINCT preferred_time FROM leads
@@ -55,7 +58,9 @@ export async function getAvailability(env: AvailabilityEnv, date: string): Promi
 
   const bookedLabels = new Set(bookedRows.results.map((r) => r.preferred_time));
   const wholeDayBlocked = blockRows.results.some((r) => r.time === null);
-  const blockedSlotIds = new Set(blockRows.results.filter((r) => r.time !== null).map((r) => r.time as string));
+  const blockedSlotIds = new Set(
+    blockRows.results.filter((r) => r.time !== null).map((r) => r.time as string)
+  );
 
   return RESERVATION_SLOTS.map((slot) => ({
     id: slot.id,

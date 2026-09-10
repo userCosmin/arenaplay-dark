@@ -107,13 +107,19 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return jsonResponse({ success: false, message: 'Serviciu invalid.' }, 400);
   }
   if (!body.name || !body.phone || !body.preferredDate || !body.preferredTime) {
-    return jsonResponse({ success: false, message: 'Completează toate câmpurile obligatorii.' }, 400);
+    return jsonResponse(
+      { success: false, message: 'Completează toate câmpurile obligatorii.' },
+      400
+    );
   }
 
   const slots = await getAvailability(env, body.preferredDate);
   const chosen = slots.find((s) => s.label === body.preferredTime);
   if (!chosen || !chosen.available) {
-    return jsonResponse({ success: false, message: 'Intervalul ales nu mai este disponibil.' }, 409);
+    return jsonResponse(
+      { success: false, message: 'Intervalul ales nu mai este disponibil.' },
+      409
+    );
   }
 
   const payload = {
@@ -128,7 +134,15 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     `INSERT INTO leads (type, status, name, phone, preferred_date, preferred_time, message, payload)
      VALUES (?, 'confirmat', ?, ?, ?, ?, ?, ?)`
   )
-    .bind(body.type, body.name, body.phone, body.preferredDate, body.preferredTime, body.message ?? '', JSON.stringify(payload))
+    .bind(
+      body.type,
+      body.name,
+      body.phone,
+      body.preferredDate,
+      body.preferredTime,
+      body.message ?? '',
+      JSON.stringify(payload)
+    )
     .run();
 
   return jsonResponse({ success: true });

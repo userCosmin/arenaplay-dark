@@ -183,15 +183,14 @@ const routes = [
   {
     path: '/petreceri-vr/pachete/',
     title: 'Pachete Petreceri & Rezervare | Arena Play',
-    description: 'Două pachete de petrecere Arena Play: 100 lei/copil pentru 4–9 copii și 80 lei/copil pentru 10–20 copii, 3 ore, acces exclusiv la toate echipamentele. Rezervă direct online.',
+    description: 'Pachet petrecere Arena Play: 100 lei/copil, minim 6 copii, 3 ore, acces exclusiv la toate echipamentele. Rezervă direct online.',
     breadcrumb: [{ label: 'Petreceri VR', href: '/petreceri-vr/' }, { label: 'Pachete & Rezervare', href: '/petreceri-vr/pachete/' }],
     jsonLd: [breadcrumbSchema([{ label: 'Petreceri VR', href: '/petreceri-vr/' }, { label: 'Pachete & Rezervare', href: '/petreceri-vr/pachete/' }])],
     body: `
       <h1>Alege pachetul potrivit</h1>
-      <p>Două pachete, aceleași beneficii — diferă doar mărimea grupului.</p>
-      ${section('Pachete disponibile', `
-        <article><h3>Pachetul 1 — 100 lei / copil</h3><p>3 ore, 4 – 9 copii. Include: acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată inclusă, 10% reducere la Pizza și Fast Food Antik.</p></article>
-        <article><h3>Pachetul 2 — 80 lei / copil</h3><p>3 ore, 10 – 20 copii. Include: acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată inclusă, 10% reducere la Pizza și Fast Food Antik.</p></article>
+      <p>Un singur pachet, fără complicații — 100 lei/copil, minim 6 copii.</p>
+      ${section('Pachet disponibil', `
+        <article><h3>Pachetul 1 — 100 lei / copil</h3><p>3 ore, minim 6 copii. Include: acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată inclusă, 10% reducere la Pizza și Fast Food Antik.</p></article>
       `)}
       ${section('Ore de începere disponibile', `
         <ul><li>11:30 – 14:30</li><li>15:00 – 18:00</li><li>18:30 – 21:30</li></ul>
@@ -291,9 +290,8 @@ const routes = [
       `)}
       ${section('Tarife — În timpul săptămânii (doar cu rezervare, acces exclusiv la toate echipamentele)', `
         <ul>
-          <li>Petrecere — Pachetul 1 — 100 lei / copil (4 – 9 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
-          <li>Petrecere — Pachetul 2 — 80 lei / copil (10 – 20 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
-          <li>Loc de joacă — acces privat — 100 lei / copil (minim 4 copii, 2 ore, acces exclusiv la toate echipamentele)</li>
+          <li>Petrecere — Pachetul 1 — 100 lei / copil (minim 6 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
+          <li>Loc de joacă — acces privat — 100 lei / copil (minim 6 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
         </ul>
       `)}
       ${section('Oferte active', `

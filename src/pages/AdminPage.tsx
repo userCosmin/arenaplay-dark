@@ -124,13 +124,26 @@ function blockTimeLabel(time: string | null): string {
   return partyTimeSlots.find((s) => s.id === time)?.label ?? time;
 }
 
-function ModalShell({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+function ModalShell({
+  title,
+  onClose,
+  children,
+}: {
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-card">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-bold text-ink-900">{title}</h2>
-          <button type="button" onClick={onClose} className="text-ink-400 hover:text-ink-700" aria-label="Închide">
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-ink-400 hover:text-ink-700"
+            aria-label="Închide"
+          >
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -140,7 +153,13 @@ function ModalShell({ title, onClose, children }: { title: string; onClose: () =
   );
 }
 
-function AddReservationModal({ onClose, onCreated }: { onClose: () => void; onCreated: () => void }) {
+function AddReservationModal({
+  onClose,
+  onCreated,
+}: {
+  onClose: () => void;
+  onCreated: () => void;
+}) {
   const [type, setType] = useState<'petreceri' | 'playground'>('petreceri');
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
@@ -169,7 +188,14 @@ function AddReservationModal({ onClose, onCreated }: { onClose: () => void; onCr
       const res = await fetch('/api/admin/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type, name, phone, preferredDate: date, preferredTime: time, message }),
+        body: JSON.stringify({
+          type,
+          name,
+          phone,
+          preferredDate: date,
+          preferredTime: time,
+          message,
+        }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
@@ -201,7 +227,11 @@ function AddReservationModal({ onClose, onCreated }: { onClose: () => void; onCr
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-ink-700">Nume</label>
-          <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Introduceți numele" />
+          <Input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Introduceți numele"
+          />
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-ink-700">Data Rezervării</label>
@@ -221,7 +251,11 @@ function AddReservationModal({ onClose, onCreated }: { onClose: () => void; onCr
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-ink-700">Număr de telefon</label>
-          <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="074 123 1234" />
+          <Input
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="074 123 1234"
+          />
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-ink-700">Mesaj (Opțional)</label>
@@ -281,7 +315,12 @@ function BlockModal({ onClose, onSaved }: { onClose: () => void; onSaved: () => 
       const res = await fetch('/api/admin/blocks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ dates: validDates, times: wholeDay ? [] : selectedTimes, recurring, reason }),
+        body: JSON.stringify({
+          dates: validDates,
+          times: wholeDay ? [] : selectedTimes,
+          recurring,
+          reason,
+        }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
@@ -336,7 +375,9 @@ function BlockModal({ onClose, onSaved }: { onClose: () => void; onSaved: () => 
 
         {!wholeDay && (
           <div>
-            <p className="mb-2 text-sm font-medium text-ink-700">Orele (selectează una sau mai multe)</p>
+            <p className="mb-2 text-sm font-medium text-ink-700">
+              Orele (selectează una sau mai multe)
+            </p>
             <div className="flex flex-wrap gap-2">
               {partyTimeSlots.map((slot) => (
                 <button
@@ -402,9 +443,14 @@ function BlockedListModal({ onClose }: { onClose: () => void }) {
     <ModalShell title="Blocaje existente" onClose={onClose}>
       <div className="flex max-h-96 flex-col gap-3 overflow-y-auto">
         {loading && <p className="text-sm text-ink-400">Se încarcă...</p>}
-        {!loading && blocks.length === 0 && <p className="text-sm text-ink-400">Niciun blocaj activ.</p>}
+        {!loading && blocks.length === 0 && (
+          <p className="text-sm text-ink-400">Niciun blocaj activ.</p>
+        )}
         {blocks.map((b) => (
-          <div key={b.id} className="flex items-start justify-between gap-3 rounded-xl border border-ink-200 p-3">
+          <div
+            key={b.id}
+            className="flex items-start justify-between gap-3 rounded-xl border border-ink-200 p-3"
+          >
             <div>
               <p className="font-medium text-ink-900">
                 {b.date}
@@ -505,13 +551,27 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 
       <main className="mx-auto max-w-6xl px-4 py-6 sm:px-8">
         <div className="mb-4 flex flex-wrap justify-end gap-3">
-          <Button variant="outline" size="sm" onClick={() => setShowBlockModal(true)} icon={<Ban className="h-4 w-4" />}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowBlockModal(true)}
+            icon={<Ban className="h-4 w-4" />}
+          >
             Blochează
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setShowBlockedList(true)} icon={<Eye className="h-4 w-4" />}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowBlockedList(true)}
+            icon={<Eye className="h-4 w-4" />}
+          >
             Vezi date blocate
           </Button>
-          <Button size="sm" onClick={() => setShowAddModal(true)} icon={<Plus className="h-4 w-4" />}>
+          <Button
+            size="sm"
+            onClick={() => setShowAddModal(true)}
+            icon={<Plus className="h-4 w-4" />}
+          >
             Adaugă
           </Button>
         </div>
@@ -713,7 +773,9 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
       {showAddModal && (
         <AddReservationModal onClose={() => setShowAddModal(false)} onCreated={fetchLeads} />
       )}
-      {showBlockModal && <BlockModal onClose={() => setShowBlockModal(false)} onSaved={fetchLeads} />}
+      {showBlockModal && (
+        <BlockModal onClose={() => setShowBlockModal(false)} onSaved={fetchLeads} />
+      )}
       {showBlockedList && <BlockedListModal onClose={() => setShowBlockedList(false)} />}
     </div>
   );
