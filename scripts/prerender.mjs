@@ -322,7 +322,7 @@ const routes = [
       ${section('Program zilnic', `
         <ul>
           <li>12:00 – 12:30: Sosire, masă și relaxare</li>
-          <li>12:30 – 16:00: Teme sprijin (corectat peste versiunea inițială)</li>
+          <li>12:30 – 16:00: Teme sprijin</li>
           <li>16:00 – 17:00: Activități recreative / Jocuri de lectură / Codare, Robotică, IT</li>
           <li>17:00 – 18:00: Activități opționale: Engleză, Șah</li>
         </ul>
