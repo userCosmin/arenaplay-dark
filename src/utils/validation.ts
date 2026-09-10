@@ -17,7 +17,11 @@ export const emailSchema = z.string().trim().email('Introdu o adresă de e-mail 
 
 export const optionalEmailSchema = z.union([emailSchema, z.literal('')]).optional();
 
-export const messageSchema = z.string().trim().max(1000, 'Mesajul este prea lung (maximum 1000 caractere).').optional();
+export const messageSchema = z
+  .string()
+  .trim()
+  .max(1000, 'Mesajul este prea lung (maximum 1000 caractere).')
+  .optional();
 
 export const consentSchema = z
   .boolean()

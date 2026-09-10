@@ -5,10 +5,9 @@
  * (see ./_auth.ts).
  */
 import { isAuthenticated, type AdminEnv } from './_auth';
+import { getAvailability, type AvailabilityEnv } from '../../_shared/availability';
 
-interface Env extends AdminEnv {
-  DB: D1Database;
-}
+interface Env extends AdminEnv, AvailabilityEnv {}
 
 interface LeadRow {
   id: number;
@@ -80,4 +79,57 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     pageSize: PAGE_SIZE,
     leads: listResult.results,
   });
+};
+
+interface CreateLeadBody {
+  type?: 'petreceri' | 'playground';
+  name?: string;
+  phone?: string;
+  preferredDate?: string;
+  preferredTime?: string;
+  message?: string;
+}
+
+/** "Adaugă rezervare" — manual booking creation from admin, same calendar as the public forms. */
+export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+  if (!(await isAuthenticated(request, env))) {
+    return jsonResponse({ success: false, message: 'Neautorizat.' }, 401);
+  }
+
+  let body: CreateLeadBody;
+  try {
+    body = await request.json();
+  } catch {
+    return jsonResponse({ success: false, message: 'Cerere invalidă.' }, 400);
+  }
+
+  if (body.type !== 'petreceri' && body.type !== 'playground') {
+    return jsonResponse({ success: false, message: 'Serviciu invalid.' }, 400);
+  }
+  if (!body.name || !body.phone || !body.preferredDate || !body.preferredTime) {
+    return jsonResponse({ success: false, message: 'Completează toate câmpurile obligatorii.' }, 400);
+  }
+
+  const slots = await getAvailability(env, body.preferredDate);
+  const chosen = slots.find((s) => s.label === body.preferredTime);
+  if (!chosen || !chosen.available) {
+    return jsonResponse({ success: false, message: 'Intervalul ales nu mai este disponibil.' }, 409);
+  }
+
+  const payload = {
+    name: body.name,
+    phone: body.phone,
+    preferredDate: body.preferredDate,
+    preferredTime: body.preferredTime,
+    message: body.message ?? '',
+  };
+
+  await env.DB.prepare(
+    `INSERT INTO leads (type, status, name, phone, preferred_date, preferred_time, message, payload)
+     VALUES (?, 'confirmat', ?, ?, ?, ?, ?, ?)`
+  )
+    .bind(body.type, body.name, body.phone, body.preferredDate, body.preferredTime, body.message ?? '', JSON.stringify(payload))
+    .run();
+
+  return jsonResponse({ success: true });
 };

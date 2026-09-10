@@ -34,6 +34,8 @@
  * them in a git-ignored `.dev.vars` file instead.
  */
 
+import { getAvailability } from '../_shared/availability';
+
 interface Env {
   DB: D1Database;
   RESEND_API_KEY: string;
@@ -222,7 +224,11 @@ async function addCalendarEvent(
  * VITE_TURNSTILE_SITE_KEY in .env.example), submissions pass through
  * unchecked, same as the other optional channels below.
  */
-async function verifyTurnstile(env: Env, token: string | undefined, ip: string | null): Promise<boolean> {
+async function verifyTurnstile(
+  env: Env,
+  token: string | undefined,
+  ip: string | null
+): Promise<boolean> {
   if (!env.TURNSTILE_SECRET_KEY) return true;
   if (!token) return false;
 
@@ -291,6 +297,24 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return jsonResponse({ success: false, message: 'Date de formular invalide.' }, 400);
   }
 
+  // Petreceri & Loc de joacă share one calendar — re-check availability server-side
+  // so two simultaneous submissions (or a direct API call) can't double-book a slot.
+  if (body.type === 'petreceri' || body.type === 'playground') {
+    const date = body.payload.preferredDate;
+    const time = body.payload.preferredTime;
+    if (typeof date !== 'string' || typeof time !== 'string' || !date || !time) {
+      return jsonResponse({ success: false, message: 'Alege data și ora rezervării.' }, 400);
+    }
+    const slots = await getAvailability(env, date);
+    const chosen = slots.find((s) => s.label === time);
+    if (!chosen || !chosen.available) {
+      return jsonResponse(
+        { success: false, message: 'Intervalul ales nu mai este disponibil. Alege alt interval.' },
+        409
+      );
+    }
+  }
+
   const turnstileToken = body.payload.turnstileToken;
   const turnstileOk = await verifyTurnstile(
     env,
@@ -298,7 +322,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     request.headers.get('CF-Connecting-IP')
   );
   if (!turnstileOk) {
-    return jsonResponse({ success: false, message: 'Verificarea anti-spam a eșuat. Reîncearcă.' }, 403);
+    return jsonResponse(
+      { success: false, message: 'Verificarea anti-spam a eșuat. Reîncearcă.' },
+      403
+    );
   }
 
   if (!env.RESEND_API_KEY) {
