@@ -41,3 +41,5 @@ export const galleryVideos = order('aniversare-6', 'aniversare-2', 'video-1', 'v
 export const playgroundGalleryVideos = order('video-2', 'video-6', 'aniversare-6', 'video-5', 'video-1', 'aniversare-2');
 
 export const petreceriGalleryVideos = order('aniversare-2', 'video-5', 'video-2', 'aniversare-6', 'video-6', 'video-1');
+
+export const despreNoiGalleryVideos = order('aniversare-6', 'video-1', 'video-5', 'aniversare-2', 'video-6', 'video-2');

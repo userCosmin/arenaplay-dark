@@ -1,8 +1,9 @@
 import { SEO } from '@/components/seo/SEO';
 import { PageHero } from '@/components/sections/PageHero';
 import { Section } from '@/components/ui/Section';
-import { Gallery } from '@/components/sections/Gallery';
+import { VideoGallery } from '@/components/sections/VideoGallery';
 import { PartnersSection } from '@/components/sections/PartnersSection';
+import { despreNoiGalleryVideos } from '@/data/videos';
 
 export default function DespreNoiPage() {
   return (
@@ -36,7 +37,7 @@ export default function DespreNoiPage() {
       </Section>
 
       <PartnersSection />
-      <Gallery title="Galerie locație & echipă" />
+      <VideoGallery title="Galerie locație & echipă" videos={despreNoiGalleryVideos} />
     </>
   );
 }
