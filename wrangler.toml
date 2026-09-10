@@ -2,6 +2,10 @@ name = "arena-play"
 compatibility_date = "2025-01-01"
 pages_build_output_dir = "dist"
 
+[vars]
+RESEND_FROM_EMAIL = "Arena Play <notificari@send.arenaplay.ro>"
+LEAD_NOTIFICATION_EMAIL = "contact@arenaplay.ro"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "arena-play-leads"
@@ -9,6 +13,10 @@ database_id = "4e970da3-0c43-4c3f-be79-fd792f2e196f"
 
 [env.production]
 name = "arena-play"
+
+[env.production.vars]
+RESEND_FROM_EMAIL = "Arena Play <notificari@send.arenaplay.ro>"
+LEAD_NOTIFICATION_EMAIL = "contact@arenaplay.ro"
 
 [[env.production.d1_databases]]
 binding = "DB"

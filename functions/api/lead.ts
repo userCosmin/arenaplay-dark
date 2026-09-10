@@ -17,21 +17,22 @@
  *   RESEND_API_KEY        — API key from resend.com (Settings → API Keys)
  *
  * Optional environment variables:
- *   LEAD_NOTIFICATION_EMAIL  — where notifications are sent
- *                              (defaults to rusanadrian1973@gmail.com below)
- *   RESEND_FROM_EMAIL        — sender address (defaults to Resend's shared
- *                              onboarding@resend.dev, which works instantly
- *                              with no domain verification; once arenaplay.ro
- *                              is verified in Resend, switch this to e.g.
- *                              "Arena Play <notificari@arenaplay.ro>")
+ *   LEAD_NOTIFICATION_EMAIL  — where notifications are sent (see wrangler.toml [vars])
+ *   RESEND_FROM_EMAIL        — sender address, must use the Resend-verified
+ *                              domain/subdomain, e.g. "Arena Play
+ *                              <notificari@send.arenaplay.ro>" (see wrangler.toml [vars])
  *   TELEGRAM_BOT_TOKEN       — from @BotFather
  *   TELEGRAM_CHAT_ID         — chat or group id the bot posts into
  *   CALENDAR_WEBHOOK_URL     — Google Apps Script web-app URL
  *   CALENDAR_WEBHOOK_SECRET  — shared secret checked by that script
  *
- * Set these in the Cloudflare dashboard: Pages project → Settings →
- * Environment variables. For local testing with `wrangler pages dev`, put
- * them in a git-ignored `.dev.vars` file instead.
+ * RESEND_API_KEY and the Telegram/Calendar secrets are set in the Cloudflare
+ * dashboard (Pages project → Settings → Environment variables) as encrypted
+ * secrets. LEAD_NOTIFICATION_EMAIL and RESEND_FROM_EMAIL are plain values and
+ * live in wrangler.toml instead, once a wrangler.toml with bindings exists —
+ * Cloudflare Pages then manages non-secret vars through the config file, not
+ * the dashboard. For local testing with `wrangler pages dev`, put secrets in
+ * a git-ignored `.dev.vars` file.
  */
 
 import { getAvailability } from '../_shared/availability';
