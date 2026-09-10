@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { ContactForm } from '@/components/forms/ContactForm';
 import { siteConfig, telUrl, whatsappUrl, mailUrl } from '@/config/site.config';
 import { trackEvent } from '@/utils/analytics';
+import { heroVideos } from '@/data/videos';
 
 export default function ContactPage() {
   return (
@@ -24,6 +25,7 @@ export default function ContactPage() {
         title="Hai să vorbim"
         subtitle="Adresă, telefon, WhatsApp și program — totul într-un singur loc."
         accent="playground"
+        backgroundVideo={heroVideos.playground}
         breadcrumbs={[{ label: 'Contact', href: '/contact/' }]}
       />
 
