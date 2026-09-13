@@ -44,7 +44,7 @@ const site = {
     country: 'RO',
   },
   geo: { latitude: 46.0697, longitude: 23.5701 },
-  social: ['https://www.facebook.com/arenaplay.albaiulia', 'https://www.instagram.com/arenaplayclubalbaiulia/'],
+  social: ['https://www.facebook.com/arenaplay.albaiulia', 'https://www.instagram.com/arenaplayalbaiulia', 'https://www.tiktok.com/@arenaplayalbaiulia'],
 };
 
 function esc(str = '') {

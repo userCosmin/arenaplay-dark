@@ -60,11 +60,9 @@ export const siteConfig = {
 
   social: {
     facebook: 'https://www.facebook.com/arenaplay.albaiulia',
-    instagram: 'https://www.instagram.com/arenaplayclubalbaiulia/',
-    // No confirmed TikTok account yet — leave empty until one exists (kept out of JSON-LD automatically).
-    tiktok: '',
-    // No dedicated channel yet — links to a single video for now.
-    youtube: 'https://www.youtube.com/watch?v=GFfsPwgtXfo',
+    instagram: 'https://www.instagram.com/arenaplayalbaiulia?stkn=MTZzMWw0YnV2bHhqaQ==',
+    tiktok: 'https://www.tiktok.com/@arenaplayalbaiulia?_r=1&_t=ZN-99dtOYPCHp8',
+    youtube: '',
   },
 
   /** Mandatory Romanian consumer-protection links (OUG 34/2014 + Regulation (EU) 524/2013). */

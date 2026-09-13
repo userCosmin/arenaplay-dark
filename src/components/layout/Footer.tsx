@@ -1,4 +1,5 @@
-import { Phone, Mail, MapPin, MessageCircle, Facebook, Instagram, Youtube, Scale, ShieldCheck } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Facebook, Instagram, Scale, ShieldCheck } from 'lucide-react';
+import { TikTokIcon } from '@/components/ui/TikTokIcon';
 import { Link } from 'react-router-dom';
 import { Container } from '@/components/ui/Container';
 import { Logo } from './Logo';
@@ -36,13 +37,13 @@ export function Footer() {
                 <Instagram className="h-5 w-5" aria-hidden="true" />
               </a>
               <a
-                href={siteConfig.social.youtube}
+                href={siteConfig.social.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Arena Play pe YouTube"
+                aria-label="Arena Play pe TikTok"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 transition-colors hover:bg-brand-500"
               >
-                <Youtube className="h-5 w-5" aria-hidden="true" />
+                <TikTokIcon className="h-5 w-5" aria-hidden="true" />
               </a>
             </div>
           </div>
