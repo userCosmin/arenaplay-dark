@@ -15,7 +15,7 @@ export const playgroundPricingWeekend: PriceItem[] = [
 export const playgroundPricingWeekday: PriceItem[] = [
   {
     id: 'petrecere-pachet-1',
-    label: 'Petrecere — Pachetul 1',
+    label: 'Petrecere — Arena Party',
     price: 100,
     unit: 'lei / copil',
     note: 'Minim 6 copii · 3 ore · acces exclusiv la toate echipamentele',

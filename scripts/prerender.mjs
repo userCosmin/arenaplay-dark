@@ -190,7 +190,7 @@ const routes = [
       <h1>Alege pachetul potrivit</h1>
       <p>Un singur pachet, fără complicații — 100 lei/copil, minim 6 copii.</p>
       ${section('Pachet disponibil', `
-        <article><h3>Pachetul 1 — 100 lei / copil</h3><p>3 ore, minim 6 copii. Include: acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată inclusă, 10% reducere la Pizza și Fast Food Antik.</p></article>
+        <article><h3>Arena Party — 100 lei / copil</h3><p>3 ore, minim 6 copii. Include: acces exclusiv la toate echipamentele, spațiu privat rezervat, apă plată inclusă, 10% reducere la Pizza și Fast Food Antik.</p></article>
       `)}
       ${section('Ore de începere disponibile', `
         <ul><li>11:30 – 14:30</li><li>15:00 – 18:00</li><li>18:30 – 21:30</li></ul>
@@ -284,7 +284,7 @@ const routes = [
       `)}
       ${section('Tarife — În timpul săptămânii (doar cu rezervare, acces exclusiv la toate echipamentele)', `
         <ul>
-          <li>Petrecere — Pachetul 1 — 100 lei / copil (minim 6 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
+          <li>Petrecere — Arena Party — 100 lei / copil (minim 6 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
           <li>Loc de joacă — acces privat — 100 lei / copil (minim 6 copii, 3 ore, acces exclusiv la toate echipamentele)</li>
         </ul>
       `)}

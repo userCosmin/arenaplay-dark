@@ -11,7 +11,7 @@ const commonIncludes = [
 export const partyPackages: PartyPackage[] = [
   {
     id: 'pachet-1',
-    name: 'Pachetul 1',
+    name: 'Arena Party',
     price: 100,
     priceUnit: 'lei / copil',
     duration: '3 ore',
