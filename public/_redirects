@@ -1,3 +1,6 @@
+# Canonical domain: redirect apex (arenaplay.ro) -> www (preserves the requested path + query)
+https://arenaplay.ro/*  https://www.arenaplay.ro/:splat  301
+
 # Legacy URLs -> renamed sections (permanent redirects, preserve any inbound links/bookmarks)
 /playground/*      /loc-de-joaca/:splat      301
 /arena-mobila/*     /arena-vr-mobila/:splat  301
